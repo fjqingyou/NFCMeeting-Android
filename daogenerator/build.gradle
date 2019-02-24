@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "com.nfcmeeting.AppDaoGenerator"
+
+dependencies {
+    compile "org.greenrobot:greendao-generator:${GREEN_DAO_VERSION}"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

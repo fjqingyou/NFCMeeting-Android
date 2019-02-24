@@ -1,7 +1,9 @@
-package com.nfcmeeting.nfcmeeting;
+package com.nfcmeeting.nfcmeeting.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.nfcmeeting.nfcmeeting.R;
 
 public class SplashActivity extends AppCompatActivity {
 
