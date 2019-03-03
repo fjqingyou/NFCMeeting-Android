@@ -20,8 +20,10 @@ import com.nfcmeeting.nfcmeeting.mvp.contract.ILoginContract;
 import com.nfcmeeting.nfcmeeting.mvp.model.BasicToken;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.base.BasePresenter;
 import com.nfcmeeting.nfcmeeting.util.StringUtils;
+import com.orhanobut.logger.Logger;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -46,16 +48,19 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
     }
 
 
-
     @Override
     public void jsonLogin(String userName, String password) {
-        AuthRequestModel authRequestModel = new AuthRequestModel(userName,password);
+        Logger.t("jsonLogin").i("jsonLogin:" + userName + " " + password);
+
+        AuthRequestModel authRequestModel = new AuthRequestModel(userName, password);
         Observable<Response<HttpResult>> observable =
                 getLoginService().login(authRequestModel);
         HttpSubscriber<HttpResult> subscriber =
                 new HttpSubscriber<>(new HttpObserver<HttpResult>() {
                     @Override
                     public void onError(Throwable error) {
+                        Logger.t("jsonLogin").i("jsonLogin failed:" + error.getStackTrace());
+                        error.printStackTrace();
                         mView.onGetTokenError(getErrorTip(error));
 
                     }
@@ -64,6 +69,10 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
                     public void onSuccess(HttpResponse<HttpResult> response) {
                         BasicToken basicToken = new BasicToken();
                         basicToken.setToken(response.getOriResponse().headers().get(Headers.SET_COOKIE));
+
+                        System.out.println(response.getOriResponse().raw().headers());
+
+                        Logger.t("jsonLogin").i("jsonLogin success:" + basicToken + " " + basicToken.getToken());
 
                         if (basicToken != null) {
                             mView.onGetTokenSuccess(basicToken);

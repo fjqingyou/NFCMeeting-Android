@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AppConfig {
 
-    public final static String  NFCMEETING_BASE_URL = "https://nfcmeeting.com/";
+    public final static String  NFCMEETING_BASE_URL = "http://nfcmeeting.com:1989/NFCMeeing/";
 
 
 

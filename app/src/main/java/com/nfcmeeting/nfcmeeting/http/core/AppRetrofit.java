@@ -31,6 +31,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -52,9 +53,12 @@ public enum AppRetrofit {
         int timeOut = AppConfig.HTTP_TIME_OUT;
         Cache cache = new Cache(FileUtil.getHttpImageCacheDir(AppApplication.get()),
                 AppConfig.HTTP_MAX_CACHE_SIZE);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(timeOut, TimeUnit.MILLISECONDS)
+                .addInterceptor(logging)
                 .addInterceptor(new BaseInterceptor())
                 .addNetworkInterceptor(new NetworkBaseInterceptor())
                 .cache(cache)

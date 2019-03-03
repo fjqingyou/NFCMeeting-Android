@@ -36,9 +36,13 @@ public interface LoginService {
 //            @Query("code") String code,
 //            @Query("state") String state
 //    );
-
+/*
+自动添加的header会产生空格，似乎不符合rfc标准，导致springboot报错
+https://tools.ietf.org/html/rfc5234#appendix-B.1
+https://stackoverflow.com/questions/40010715/android-retrofit-api-call-with-space-in-parameter
+ */
     @POST("login")
-    @Headers("Accept: application/json")
+    @Headers({"Accept: application/json","Content-Type: application/json;charset=UTF-8"})
     Observable<Response<HttpResult>> login(
             @NonNull @Body AuthRequestModel authRequestModel
     );

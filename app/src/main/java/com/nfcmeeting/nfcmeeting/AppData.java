@@ -16,7 +16,8 @@ public enum AppData {
     INSTANCE;
 
 
-    /*@AutoAccess(dataName = "appData_authUser")*/ AuthUser authUser;
+//    @AutoAccess(dataName = "appData_authUser")
+    AuthUser authUser;
     @AutoAccess(dataName = "appData_systemDefaultLocal") Locale systemDefaultLocal;
 
 
