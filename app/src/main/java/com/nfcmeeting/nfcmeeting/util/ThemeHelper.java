@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.support.annotation.StyleRes;
 
 import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.ui.activity.SplashActivity;
 import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseActivity;
 
 

@@ -36,7 +36,7 @@ public class AppConfig {
 
     public final static String DB_NAME = "NFCMeeting.db";
 
-    public final static String BUGLY_APPID = BuildConfig.DEBUG ? BuildConfig.DEBUG_BUGLY_ID : BuildConfig.BUGLY_ID;
+    //public final static String BUGLY_APPID = BuildConfig.DEBUG ? BuildConfig.DEBUG_BUGLY_ID : BuildConfig.BUGLY_ID;
 
 
 

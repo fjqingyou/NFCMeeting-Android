@@ -1,10 +1,10 @@
 
 
-package com.nfcmeeting.nfcmeeting.inject;
+package com.nfcmeeting.nfcmeeting.inject.component;
 
 import com.nfcmeeting.nfcmeeting.AppApplication;
 import com.nfcmeeting.nfcmeeting.dao.DaoSession;
-import com.nfcmeeting.nfcmeeting.model.AppModule;
+import com.nfcmeeting.nfcmeeting.inject.module.AppModule;
 
 
 

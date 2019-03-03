@@ -10,17 +10,13 @@ import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
 import java.util.Locale;
 
-/**
- * Created on 2017/7/14.
- *
- * @author ThirtyDegreesRay
- */
+
 
 public enum AppData {
     INSTANCE;
 
 
-    @AutoAccess(dataName = "appData_authUser") AuthUser authUser;
+    /*@AutoAccess(dataName = "appData_authUser")*/ AuthUser authUser;
     @AutoAccess(dataName = "appData_systemDefaultLocal") Locale systemDefaultLocal;
 
 

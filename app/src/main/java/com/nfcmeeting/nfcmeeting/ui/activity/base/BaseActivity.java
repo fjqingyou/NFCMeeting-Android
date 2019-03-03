@@ -14,6 +14,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -24,16 +25,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.bumptech.glide.Glide;
+import com.nfcmeeting.nfcmeeting.AppApplication;
 import com.nfcmeeting.nfcmeeting.AppData;
 import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.dao.DaoSession;
+import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
 import com.nfcmeeting.nfcmeeting.ui.activity.LoginActivity;
 import com.nfcmeeting.nfcmeeting.ui.activity.SplashActivity;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
+import com.nfcmeeting.nfcmeeting.ui.widget.webview.DoubleClickHandler;
+import com.nfcmeeting.nfcmeeting.util.AppUtils;
+import com.nfcmeeting.nfcmeeting.util.PrefUtils;
+import com.nfcmeeting.nfcmeeting.util.ThemeHelper;
+import com.nfcmeeting.nfcmeeting.util.WindowUtil;
+import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
+import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
+
 public abstract class
 BaseActivity<P extends IBaseContract.Presenter>
         extends AppCompatActivity implements IBaseContract.View{
@@ -445,7 +460,8 @@ BaseActivity<P extends IBaseContract.Presenter>
         return isAlive;
     }
 
-    @AutoAccess boolean isFullScreen = false;
+    @AutoAccess
+    boolean isFullScreen = false;
 
     protected void exitFullScreen() {
         showStatusBar();

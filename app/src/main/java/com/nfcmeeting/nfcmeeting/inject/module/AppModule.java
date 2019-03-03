@@ -1,6 +1,6 @@
 
 
-package com.nfcmeeting.nfcmeeting.model;
+package com.nfcmeeting.nfcmeeting.inject.module;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -22,7 +22,6 @@ import dagger.Provides;
 
 /**
  * AppModule
- * Created by ThirtyDegreesRay on 2016/8/30 13:52
  */
 @Module
 public class AppModule {

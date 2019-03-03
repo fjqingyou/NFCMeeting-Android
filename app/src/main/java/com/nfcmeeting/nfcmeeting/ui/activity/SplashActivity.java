@@ -1,15 +1,111 @@
+
+
 package com.nfcmeeting.nfcmeeting.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
-import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.component.DaggerActivityComponent;
+import com.nfcmeeting.nfcmeeting.inject.module.ActivityModule;
+import com.nfcmeeting.nfcmeeting.mvp.contract.ISplashContract;
+import com.nfcmeeting.nfcmeeting.mvp.presenter.SplashPresenter;
+import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseActivity;
 
-public class SplashActivity extends AppCompatActivity {
+
+/**
+ * Created on 2017/7/12.
+ *
+ * @author ThirtyDegreesRay
+ */
+public class SplashActivity extends BaseActivity<SplashPresenter> implements ISplashContract.View {
+
+    private final String TAG = "SplashActivity";
+
+//    private final int REQUEST_ACCESS_TOKEN = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+    public void showMainPage() {
+        delayFinish();
+        Uri dataUri = getIntent().getData();
+        if (dataUri == null) {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+        } else {
+            BrowserFilterActivity.handleBrowserUri(getActivity(), dataUri);
+        }
     }
+
+    @Override
+    public void showLoginPage() {
+        delayFinish();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+    }
+
+    /**
+     * 依赖注入的入口
+     *
+     * @param appComponent appComponent
+     */
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+        DaggerActivityComponent.builder()
+                .appComponent(appComponent)
+                .activityModule(new ActivityModule(getActivity()))
+                .build()
+                .inject(this);
+    }
+
+    /**
+     * 获取ContentView id
+     *
+     * @return
+     */
+    @Override
+    protected int getContentView() {
+        return 0;
+    }
+
+    /**
+     * 初始化activity
+     */
+    @Override
+    protected void initActivity() {
+        super.initActivity();
+        mPresenter.getUser();
+    }
+
+    /**
+     * 初始化view
+     *
+     * @param savedInstanceState
+     */
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+    }
+
+    /**
+     * Dispatch incoming result to the correct fragment.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+//            case REQUEST_ACCESS_TOKEN:
+//                if(resultCode == RESULT_OK){
+//                    showMainPage();
+//                }
+//                break;
+            default:
+                break;
+        }
+    }
+
 }

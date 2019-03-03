@@ -10,27 +10,18 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 
-import com.nfcmeeting.nfcmeeting.inject.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.component.DaggerAppComponent;
+import com.nfcmeeting.nfcmeeting.inject.module.AppModule;
+import com.nfcmeeting.nfcmeeting.service.NetBroadcastReceiver;
+import com.nfcmeeting.nfcmeeting.util.AppUtils;
+import com.nfcmeeting.nfcmeeting.util.NetHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.thirtydegreesray.openhub.inject.component.DaggerAppComponent;
-import com.thirtydegreesray.openhub.inject.module.AppModule;
-import com.thirtydegreesray.openhub.service.NetBroadcastReceiver;
-import com.thirtydegreesray.openhub.ui.activity.AboutActivity;
-import com.thirtydegreesray.openhub.ui.activity.LoginActivity;
-import com.thirtydegreesray.openhub.ui.activity.MainActivity;
-import com.thirtydegreesray.openhub.ui.widget.UpgradeDialog;
-import com.thirtydegreesray.openhub.util.AppUtils;
-import com.thirtydegreesray.openhub.util.NetHelper;
 
-/**
- * AppApplication
- * Created by ThirtyDegreesRay on 2016/7/13 14:01
- */
+
+
 public class AppApplication extends Application {
 
     private final String TAG = AppApplication.class.getSimpleName();
@@ -59,7 +50,7 @@ public class AppApplication extends Application {
                 .appModule(new AppModule(this))
                 .build();
         initNetwork();
-        initBugly();
+        //initBugly();
         startTime = System.currentTimeMillis();
         Logger.t(TAG).i("application ok:" + (System.currentTimeMillis() - startTime));
 
@@ -86,23 +77,23 @@ public class AppApplication extends Application {
         });
     }
 
-    private void initBugly(){
-
-        Beta.initDelay = 6 * 1000;
-        Beta.enableHotfix = false;
-        Beta.canShowUpgradeActs.add(LoginActivity.class);
-        Beta.canShowUpgradeActs.add(MainActivity.class);
-        Beta.canShowUpgradeActs.add(AboutActivity.class);
-        Beta.upgradeListener = UpgradeDialog.INSTANCE;
-
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
-        strategy.setAppVersion(BuildConfig.VERSION_NAME);
-        strategy.setAppChannel(getAppChannel());
-        strategy.setAppReportDelay(10 * 1000);
-        Bugly.init(getApplicationContext(), AppConfig.BUGLY_APPID, BuildConfig.DEBUG, strategy);
-        CrashReport.setIsDevelopmentDevice(getApplicationContext(), BuildConfig.DEBUG);
-
-    }
+//    private void initBugly(){
+//
+//        Beta.initDelay = 6 * 1000;
+//        Beta.enableHotfix = false;
+//        Beta.canShowUpgradeActs.add(LoginActivity.class);
+//        Beta.canShowUpgradeActs.add(MainActivity.class);
+//        Beta.canShowUpgradeActs.add(AboutActivity.class);
+//        Beta.upgradeListener = UpgradeDialog.INSTANCE;
+//
+//        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
+//        strategy.setAppVersion(BuildConfig.VERSION_NAME);
+//        strategy.setAppChannel(getAppChannel());
+//        strategy.setAppReportDelay(10 * 1000);
+//        Bugly.init(getApplicationContext(), AppConfig.BUGLY_APPID, BuildConfig.DEBUG, strategy);
+//        CrashReport.setIsDevelopmentDevice(getApplicationContext(), BuildConfig.DEBUG);
+//
+//    }
 
     private void initNetwork(){
         NetBroadcastReceiver receiver = new NetBroadcastReceiver();

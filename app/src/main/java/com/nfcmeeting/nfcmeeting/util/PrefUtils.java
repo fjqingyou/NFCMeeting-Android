@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 
+import com.nfcmeeting.nfcmeeting.AppApplication;
+
 import java.util.Set;
 
 /**
