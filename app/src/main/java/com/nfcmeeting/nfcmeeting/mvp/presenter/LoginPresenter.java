@@ -91,6 +91,8 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
                 new HttpObserver<User>() {
                     @Override
                     public void onError(Throwable error) {
+                        Logger.t("getUserInfo error").e(getErrorTip(error),error.toString());
+                        error.printStackTrace();
                         mView.dismissProgressDialog();
                         mView.showErrorToast(getErrorTip(error));
                     }
@@ -111,6 +113,8 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
     }
 
     private void saveAuthUser(BasicToken basicToken, User userInfo) {
+        Logger.t("saveAuthUser").i("userInfo:" + userInfo + " " + basicToken);
+
         String updateSql = "UPDATE " + daoSession.getAuthUserDao().getTablename()
                 + " SET " + AuthUserDao.Properties.Selected.columnName + " = 0";
         daoSession.getAuthUserDao().getDatabase().execSQL(updateSql);
@@ -121,10 +125,10 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
         daoSession.getAuthUserDao().getDatabase().execSQL(deleteExistsSql);
 
         AuthUser authUser = new AuthUser();
-        String scope = StringUtils.listToString(basicToken.getScopes(), ",");
+        //String scope = StringUtils.listToString(basicToken.getScopes(), ",");
         Date date = new Date();
         authUser.setAccessToken(basicToken.getToken());
-        authUser.setScope(scope);
+        authUser.setScope("all");
         authUser.setAuthTime(date);
         authUser.setExpireIn(360 * 24 * 60 * 60);
         authUser.setSelected(true);

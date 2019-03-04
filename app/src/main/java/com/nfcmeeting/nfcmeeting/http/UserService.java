@@ -19,16 +19,12 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
-/**
- * Created on 2017/8/1.
- *
- * @author ThirtyDegreesRay
- */
+
 
 public interface UserService {
 
     @NonNull
-    @GET("user")
+    @GET("user/getPersonInfo")
     Observable<Response<User>> getPersonInfo(
             @Header("forceNetWork") boolean forceNetWork
     );

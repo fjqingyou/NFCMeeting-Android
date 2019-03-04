@@ -18,7 +18,7 @@ public class AuthUser {
     private java.util.Date authTime;
     private int expireIn;
 
-    @NotNull
+    //@NotNull
     private String scope;
     private boolean selected;
 
