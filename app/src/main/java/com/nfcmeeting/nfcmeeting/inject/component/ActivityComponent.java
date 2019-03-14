@@ -5,7 +5,6 @@ package com.nfcmeeting.nfcmeeting.inject.component;
 import com.nfcmeeting.nfcmeeting.inject.ActivityScope;
 import com.nfcmeeting.nfcmeeting.inject.module.ActivityModule;
 import com.nfcmeeting.nfcmeeting.ui.activity.LoginActivity;
-import com.nfcmeeting.nfcmeeting.ui.activity.MainActivity;
 import com.nfcmeeting.nfcmeeting.ui.activity.SplashActivity;
 
 

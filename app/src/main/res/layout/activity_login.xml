@@ -94,21 +94,6 @@
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:layout_marginBottom="@dimen/spacing_normal"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/oauth_tip"/>
-
-                <Button
-                    android:id="@+id/oauth_login_bn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:paddingLeft="@dimen/spacing_small"
-                    android:paddingRight="@dimen/spacing_small"
-                    android:layout_margin="@dimen/spacing_normal"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:text="@string/login_in_browser"
-                    android:textColor="?colorAccent"/>
 
             </LinearLayout>
 

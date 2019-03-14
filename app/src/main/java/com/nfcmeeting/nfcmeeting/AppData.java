@@ -5,6 +5,7 @@ package com.nfcmeeting.nfcmeeting;
 import android.support.annotation.Nullable;
 
 import com.nfcmeeting.nfcmeeting.dao.AuthUser;
+import com.nfcmeeting.nfcmeeting.model.User;
 import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
 
@@ -20,7 +21,17 @@ public enum AppData {
     AuthUser authUser;
     @AutoAccess(dataName = "appData_systemDefaultLocal") Locale systemDefaultLocal;
 
+    @AutoAccess(dataName = "appData_loggedUser")
+    User loggedUser;
 
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 
     public AuthUser getAuthUser() {
         return authUser;

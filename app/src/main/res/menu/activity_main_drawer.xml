@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/my_account"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:checkable="false"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout"/>
+    </group>
+
+
+
+    <group
+        android:id="@+id/my"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:checkable="false"
+            android:icon="@drawable/ic_menu_person"
+            android:title="@string/profile"/>
+        <item
+            android:id="@+id/nav_notifications"
+            android:checkable="false"
+            android:icon="@drawable/ic_menu_notifications"
+            android:title="@string/notifications"/>
+
+
+    </group>
+
+    <group
+        android:id="@+id/meetings"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_all"
+            android:icon="@drawable/ic_menu_meeting"
+            android:title="@string/all_meetings"/>
+        <item
+            android:id="@+id/nav_starred"
+            android:icon="@drawable/ic_menu_star"
+            android:title="@string/starred_meetings"/>
+
+
+    </group>
+
+    <group
+        android:id="@+id/search"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search"
+            android:checkable="false"
+            android:icon="@drawable/ic_search_title"
+            android:title="@string/search"/>
+
+
+
+    </group>
+
+    <group
+        android:id="@+id/setting"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/settings"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="@string/about"/>
+    </group>
+
+</menu>
