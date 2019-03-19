@@ -3,7 +3,7 @@
     package="com.nfcmeeting.nfcmeeting">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".AppApplication"
@@ -13,6 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/SplashTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/SplashTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/SplashTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:theme="@style/SplashTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/SplashTheme.NoActionBar" />
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +40,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="login"
-                    android:scheme="openhub"/>
+                    android:scheme="openhub" />
             </intent-filter>
         </activity>
     </application>

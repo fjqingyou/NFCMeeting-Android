@@ -11,25 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.thirtydegreesray.openhub.R;
-import com.thirtydegreesray.openhub.inject.component.AppComponent;
-import com.thirtydegreesray.openhub.inject.component.DaggerFragmentComponent;
-import com.thirtydegreesray.openhub.inject.module.FragmentModule;
-import com.thirtydegreesray.openhub.mvp.contract.IRepositoriesContract;
-import com.thirtydegreesray.openhub.mvp.model.Collection;
-import com.thirtydegreesray.openhub.mvp.model.Repository;
-import com.thirtydegreesray.openhub.mvp.model.SearchModel;
-import com.thirtydegreesray.openhub.mvp.model.Topic;
-import com.thirtydegreesray.openhub.mvp.model.TrendingLanguage;
-import com.thirtydegreesray.openhub.mvp.model.filter.RepositoriesFilter;
-import com.thirtydegreesray.openhub.mvp.model.filter.TrendingSince;
-import com.thirtydegreesray.openhub.mvp.presenter.RepositoriesPresenter;
-import com.thirtydegreesray.openhub.ui.activity.RepositoryActivity;
-import com.thirtydegreesray.openhub.ui.activity.TrendingActivity;
-import com.thirtydegreesray.openhub.ui.adapter.RepositoriesAdapter;
-import com.thirtydegreesray.openhub.ui.fragment.base.ListFragment;
-import com.thirtydegreesray.openhub.ui.fragment.base.OnDrawerSelectedListener;
-import com.thirtydegreesray.openhub.util.BundleHelper;
 
 import java.util.ArrayList;
 

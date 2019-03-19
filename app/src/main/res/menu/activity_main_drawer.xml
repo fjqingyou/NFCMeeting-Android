@@ -34,9 +34,9 @@
         android:id="@+id/meetings"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_all"
+            android:id="@+id/nav_owned"
             android:icon="@drawable/ic_menu_meeting"
-            android:title="@string/all_meetings"/>
+            android:title="@string/my_meetings"/>
         <item
             android:id="@+id/nav_starred"
             android:icon="@drawable/ic_menu_star"

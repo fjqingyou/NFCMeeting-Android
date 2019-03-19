@@ -34,7 +34,7 @@
     <!--menu-->
     <string name="profile">Profile</string>
     <string name="notifications">Notifications</string>
-    <string name="all_meetings">All meetings</string>
+    <string name="my_meetings">All meetings</string>
     <string name="starred_meetings">Starred meetings</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
@@ -42,6 +42,35 @@
 
     <string name="my_repos">My repos</string>
     <string name="starred_repos">Starred repos</string>
+
+    <string name="sort">Sort</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_notifications">NotificationsActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+
+    <string name="type">Type</string>
+    <string name="hosting">Hosting</string>
+    <string name="finished">Finished</string>
+    <string name="all">All</string>
+
+    <string name="sort_order">Sort order</string>
+    <string name="full_name_asc">Full name asc</string>
+    <string name="full_name_desc">Full name desc</string>
+    <string name="recently_created">Recently created</string>
+    <string name="previously_created">Previously created</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="ok">OK</string>
+
+    <string name="tap_to_retry">Tap to retry</string>
+
+    <string name="double_click_toolbar_tip">You can double click title to back top in list page.</string>
+
+
 
 
 </resources>

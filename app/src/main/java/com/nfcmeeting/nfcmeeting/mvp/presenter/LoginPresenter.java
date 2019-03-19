@@ -138,7 +138,7 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View>
         daoSession.getAuthUserDao().insert(authUser);
 
         AppData.INSTANCE.setAuthUser(authUser);
-        //AppData.INSTANCE.setLoggedUser(userInfo);
+        AppData.INSTANCE.setLoggedUser(userInfo);
     }
 
 

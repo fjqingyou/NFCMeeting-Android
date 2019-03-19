@@ -3,7 +3,6 @@
 package com.nfcmeeting.nfcmeeting.ui.activity;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,11 +24,11 @@ import com.nfcmeeting.nfcmeeting.R;
 import com.nfcmeeting.nfcmeeting.dao.AuthUser;
 import com.nfcmeeting.nfcmeeting.model.User;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IMainContract;
+import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.MainPresenter;
 import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseDrawerActivity;
 import com.nfcmeeting.nfcmeeting.ui.fragment.RepositoriesFragment;
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
-import com.nfcmeeting.nfcmeeting.util.StringUtils;
 import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
 import java.util.Arrays;
@@ -58,7 +57,7 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
     private boolean isAccountsAdded = false;
 
     private final List<Integer> FRAGMENT_NAV_ID_LIST = Arrays.asList(
-            R.id.nav_all,  R.id.nav_starred
+            R.id.nav_owned,  R.id.nav_starred
     );
 
     private final List<String> FRAGMENT_TAG_LIST = Arrays.asList(
@@ -126,7 +125,7 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
         updateStartDrawerContent(R.menu.activity_main_drawer);
         removeEndDrawer();
 
-        selectedPage =  R.id.nav_all;
+        selectedPage =  R.id.nav_owned;
         updateFragmentByNavId(selectedPage);
 
         navViewStart.setCheckedItem(selectedPage);
@@ -140,12 +139,13 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
             toggleAccountLay();
         });
 
-        AuthUser loginUser = AppData.INSTANCE.getAuthUser();
+        //AuthUser loginUser = AppData.INSTANCE.getAuthUser();
+        User loginUser = AppData.INSTANCE.getLoggedUser();
         GlideApp.with(getActivity())
                 .load(loginUser.getAvatar())
                 .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
                 .into(avatar);
-        name.setText(loginUser.getUS );
+        name.setText(loginUser.getUserName() );
 //        String joinTime = getString(R.string.joined_at).concat(" ")
 //                .concat(StringUtils.getDateStr(loginUser.getCreatedAt()));
         mail.setText(loginUser.getName());
@@ -196,18 +196,13 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
         }
         switch (id) {
             case R.id.nav_profile:
-                ProfileActivity.show(getActivity(), AppData.INSTANCE.getLoggedUser().getLogin(),
-                        AppData.INSTANCE.getLoggedUser().getAvatarUrl());
-                break;
-            case R.id.nav_issues:
-                IssuesActivity.showForUser(getActivity());
+                ProfileActivity.show(getActivity(), AppData.INSTANCE.getLoggedUser().getUserId().toString(),
+                        AppData.INSTANCE.getLoggedUser().getAvatar());
                 break;
             case R.id.nav_notifications:
                 NotificationsActivity.show(getActivity());
                 break;
-            case R.id.nav_trending:
-                TrendingActivity.show(getActivity());
-                break;
+
             case R.id.nav_search:
                 SearchActivity.show(getActivity());
                 break;
@@ -217,12 +212,8 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
             case R.id.nav_about:
                 AboutActivity.show(getActivity());
                 break;
-
             case R.id.nav_logout:
                 logout();
-                break;
-            case R.id.nav_add_account:
-                showLoginPage();
                 break;
             default:
                 break;
@@ -231,10 +222,10 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
 
     private void updateFilter(int itemId) {
         if (itemId == R.id.nav_owned) {
-            updateEndDrawerContent(R.menu.menu_repositories_filter);
+            updateEndDrawerContent(R.menu.menu_meetings_filter);
             RepositoriesFilter.initDrawer(navViewEnd, RepositoriesFragment.RepositoriesType.OWNED);
         } else if (itemId == R.id.nav_starred) {
-            updateEndDrawerContent(R.menu.menu_repositories_filter);
+            updateEndDrawerContent(R.menu.menu_meetings_filter);
             RepositoriesFilter.initDrawer(navViewEnd, RepositoriesFragment.RepositoriesType.STARRED);
         } else {
             removeEndDrawer();
@@ -271,12 +262,6 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
     @NonNull
     private Fragment getFragment(int itemId) {
         switch (itemId) {
-            case R.id.nav_news:
-                return ActivityFragment.create(ActivityFragment.ActivityType.News,
-                        AppData.INSTANCE.getLoggedUser().getLogin());
-            case R.id.nav_public_news:
-                return ActivityFragment.create(ActivityFragment.ActivityType.PublicNews,
-                        AppData.INSTANCE.getLoggedUser().getLogin());
             case R.id.nav_owned:
                 return RepositoriesFragment.create(RepositoriesFragment.RepositoriesType.OWNED,
                         AppData.INSTANCE.getLoggedUser().getLogin());
