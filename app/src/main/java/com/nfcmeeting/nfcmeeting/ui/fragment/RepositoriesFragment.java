@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import com.nfcmeeting.nfcmeeting.mvp.contract.IRepositoriesContract;
+import com.nfcmeeting.nfcmeeting.mvp.presenter.RepositoriesPresenter;
 
 
 import java.util.ArrayList;

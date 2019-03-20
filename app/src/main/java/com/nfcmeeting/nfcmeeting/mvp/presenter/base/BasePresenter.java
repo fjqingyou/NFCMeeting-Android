@@ -17,6 +17,7 @@ import com.nfcmeeting.nfcmeeting.R;
 import com.nfcmeeting.nfcmeeting.common.AppEventBus;
 import com.nfcmeeting.nfcmeeting.dao.DaoSession;
 import com.nfcmeeting.nfcmeeting.http.LoginService;
+import com.nfcmeeting.nfcmeeting.http.MeetingService;
 import com.nfcmeeting.nfcmeeting.http.UserService;
 import com.nfcmeeting.nfcmeeting.http.core.AppRetrofit;
 import com.nfcmeeting.nfcmeeting.http.core.HttpObserver;
@@ -152,7 +153,9 @@ public abstract class BasePresenter<V extends IBaseContract.View> implements IBa
         return getUserService(AppData.INSTANCE.getAccessToken());
     }
 
-
+    protected MeetingService getMeetingService() {
+        return getServices(MeetingService.class);
+    }
 
     private <T> T getServices(Class<T> serviceClass){
         return getServices(serviceClass, AppConfig.NFCMEETING_BASE_URL, true);

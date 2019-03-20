@@ -4,9 +4,12 @@ package com.nfcmeeting.nfcmeeting.mvp.contract;
 
 import android.support.annotation.NonNull;
 
+import com.nfcmeeting.nfcmeeting.common.Event;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseListContract;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBasePagerContract;
+
+import java.util.ArrayList;
 
 public interface IActivityContract {
 

@@ -24,16 +24,12 @@ public class SearchModel implements Parcelable {
 
     public static final List<Integer> REPO_SORT_ID_LIST = Arrays.asList(
             R.id.action_bast_match,
-            R.id.action_most_stars, R.id.action_fewest_stars,
-            R.id.action_most_forks, R.id.action_fewest_forks,
-            R.id.action_recently_updated, R.id.action_least_recently_updated
+            R.id.action_recently_created, R.id.action_previously_created
     );
 
     public static final List<Integer> USER_SORT_ID_LIST = Arrays.asList(
             R.id.action_bast_match,
-            R.id.action_most_followers, R.id.action_fewest_followers,
-            R.id.action_most_recently_joined, R.id.action_least_recently_joined,
-            R.id.action_most_repositories, R.id.action_fewest_repositories
+            R.id.action_most_recently_joined, R.id.action_least_recently_joined
     );
 
     public static final List<Integer> SORT_ID_LIST = new ArrayList<>();
@@ -106,51 +102,31 @@ public class SearchModel implements Parcelable {
             case R.id.action_bast_match:
                 sort = "";
                 break;
-            case R.id.action_most_stars:
-            case R.id.action_fewest_stars:
-                sort = "stars";
-                break;
-            case R.id.action_most_forks:
-            case R.id.action_fewest_forks:
-                sort = "forks";
-                break;
-            case R.id.action_recently_updated:
-            case R.id.action_least_recently_updated:
-                sort = "updated";
+
+
+            case R.id.action_recently_created:
+            case R.id.action_previously_created:
+                sort = "created";
                 break;
 
-            case R.id.action_most_followers:
-            case R.id.action_fewest_followers:
-                sort = "followers";
-                break;
             case R.id.action_most_recently_joined:
             case R.id.action_least_recently_joined:
                 sort = "joined";
                 break;
-            case R.id.action_most_repositories:
-            case R.id.action_fewest_repositories:
-                sort = "repositories";
-                break;
+
         }
     }
 
     private void setOrderWithSortId(int sortId){
         switch (sortId){
             case R.id.action_bast_match:
-            case R.id.action_most_stars:
-            case R.id.action_most_forks:
-            case R.id.action_recently_updated:
-            case R.id.action_most_followers:
+            case R.id.action_recently_created:
             case R.id.action_most_recently_joined:
-            case R.id.action_most_repositories:
                 desc = true;
                 break;
             case R.id.action_fewest_stars:
-            case R.id.action_fewest_forks:
-            case R.id.action_least_recently_updated:
-            case R.id.action_fewest_followers:
+            case R.id.action_previously_created:
             case R.id.action_least_recently_joined:
-            case R.id.action_fewest_repositories:
                 desc = false;
                 break;
         }

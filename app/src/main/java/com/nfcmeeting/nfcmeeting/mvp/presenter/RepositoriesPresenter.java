@@ -6,37 +6,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.nfcmeeting.nfcmeeting.dao.DaoSession;
+import com.nfcmeeting.nfcmeeting.http.core.HttpObserver;
+import com.nfcmeeting.nfcmeeting.http.core.HttpResponse;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IRepositoriesContract;
 import com.nfcmeeting.nfcmeeting.mvp.model.Repository;
+import com.nfcmeeting.nfcmeeting.mvp.model.SearchModel;
 import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.base.BasePagerPresenter;
 import com.nfcmeeting.nfcmeeting.ui.fragment.RepositoriesFragment;
 import com.orhanobut.logger.Logger;
 import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
-import com.thirtydegreesray.openhub.AppConfig;
-import com.thirtydegreesray.openhub.R;
-import com.thirtydegreesray.openhub.common.Event;
-import com.thirtydegreesray.openhub.dao.BookMarkRepo;
-import com.thirtydegreesray.openhub.dao.BookMarkRepoDao;
-import com.thirtydegreesray.openhub.dao.DaoSession;
-import com.thirtydegreesray.openhub.dao.TraceRepo;
-import com.thirtydegreesray.openhub.dao.TraceRepoDao;
-import com.thirtydegreesray.openhub.http.core.HttpObserver;
-import com.thirtydegreesray.openhub.http.core.HttpResponse;
-import com.thirtydegreesray.openhub.http.error.HttpPageNoFoundError;
-import com.thirtydegreesray.openhub.mvp.contract.IRepositoriesContract;
-import com.thirtydegreesray.openhub.mvp.model.Collection;
-import com.thirtydegreesray.openhub.mvp.model.Repository;
-import com.thirtydegreesray.openhub.mvp.model.SearchModel;
-import com.thirtydegreesray.openhub.mvp.model.SearchResult;
-import com.thirtydegreesray.openhub.mvp.model.Topic;
-import com.thirtydegreesray.openhub.mvp.model.TrendingLanguage;
-import com.thirtydegreesray.openhub.mvp.model.User;
-import com.thirtydegreesray.openhub.mvp.model.filter.RepositoriesFilter;
-import com.thirtydegreesray.openhub.mvp.model.filter.TrendingSince;
-import com.thirtydegreesray.openhub.mvp.presenter.base.BasePagerPresenter;
-import com.thirtydegreesray.openhub.ui.fragment.RepositoriesFragment;
-import com.thirtydegreesray.openhub.util.StringUtils;
+
 
 import org.greenrobot.eventbus.Subscribe;
 import org.jsoup.Jsoup;
@@ -57,11 +37,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * Created on 2017/7/18.
- *
- * @author ThirtyDegreesRay
- */
+
 
 public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContract.View>
         implements IRepositoriesContract.Presenter {
@@ -72,7 +48,8 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
     @AutoAccess String user;
     @AutoAccess String repo;
 
-    @AutoAccess SearchModel searchModel;
+    @AutoAccess
+    SearchModel searchModel;
 
     @AutoAccess
     RepositoriesFilter filter;
@@ -195,7 +172,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
     private Observable<Response<ArrayList<Repository>>> getObservable(boolean forceNetWork, int page) {
         switch (type) {
             case OWNED:
-                return getRepoService().getUserRepos(forceNetWork, page, filter.getType(),
+                return getMeetingService().getUserRepos(forceNetWork, page, filter.getType(),
                         filter.getSort(), filter.getSortDirection());
             case PUBLIC:
                 return getRepoService().getUserPublicRepos(forceNetWork, user, page,

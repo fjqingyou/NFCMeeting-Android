@@ -31,6 +31,33 @@ public class Repository implements Parcelable {
 
     private Integer moderator;
 
+    protected Repository(Parcel in) {
+        if (in.readByte() == 0) {
+            meetingId = null;
+        } else {
+            meetingId = in.readInt();
+        }
+        title = in.readString();
+        content = in.readString();
+        if (in.readByte() == 0) {
+            moderator = null;
+        } else {
+            moderator = in.readInt();
+        }
+    }
+
+    public static final Creator<Repository> CREATOR = new Creator<Repository>() {
+        @Override
+        public Repository createFromParcel(Parcel in) {
+            return new Repository(in);
+        }
+
+        @Override
+        public Repository[] newArray(int size) {
+            return new Repository[size];
+        }
+    };
+
     public Integer getMeetingId() {
         return meetingId;
     }
@@ -86,6 +113,19 @@ public class Repository implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        if (meetingId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(meetingId);
+        }
+        dest.writeString(title);
+        dest.writeString(content);
+        if (moderator == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(moderator);
+        }
     }
 }

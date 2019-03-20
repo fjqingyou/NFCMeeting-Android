@@ -71,6 +71,10 @@
     <string name="double_click_toolbar_tip">You can double click title to back top in list page.</string>
 
 
+    <string name="best_match">Best match</string>
+    <string name="most_recently_joined">Most recently joined</string>
+    <string name="least_recently_joined">Least recently joined</string>
+    <string name="info">Info</string>
 
 
 </resources>

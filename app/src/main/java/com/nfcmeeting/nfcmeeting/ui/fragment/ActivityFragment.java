@@ -9,7 +9,8 @@ import android.support.annotation.Nullable;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-
+import com.nfcmeeting.nfcmeeting.mvp.contract.IActivityContract;
+import com.nfcmeeting.nfcmeeting.mvp.presenter.ActivityPresenter;
 
 
 import java.util.ArrayList;
