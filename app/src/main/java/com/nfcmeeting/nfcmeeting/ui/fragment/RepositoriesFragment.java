@@ -12,9 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IRepositoriesContract;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.RepositoriesPresenter;
+import com.nfcmeeting.nfcmeeting.ui.fragment.base.OnDrawerSelectedListener;
+import com.nfcmeeting.nfcmeeting.util.BundleHelper;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created on 2017/7/18.
@@ -23,8 +26,7 @@ import java.util.ArrayList;
  */
 
 public class RepositoriesFragment extends ListFragment<RepositoriesPresenter, RepositoriesAdapter>
-            implements IRepositoriesContract.View, OnDrawerSelectedListener,
-        TrendingActivity.LanguageUpdateListener{
+            implements IRepositoriesContract.View, OnDrawerSelectedListener {
 
     public enum RepositoriesType{
         OWNED, PUBLIC, STARRED, TRENDING, SEARCH, FORKS, TRACE, BOOKMARK, COLLECTION, TOPIC

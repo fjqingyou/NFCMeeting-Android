@@ -124,7 +124,6 @@ public class SearchModel implements Parcelable {
             case R.id.action_most_recently_joined:
                 desc = true;
                 break;
-            case R.id.action_fewest_stars:
             case R.id.action_previously_created:
             case R.id.action_least_recently_joined:
                 desc = false;

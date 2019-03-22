@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.nfcmeeting.nfcmeeting.AppData;
 import com.nfcmeeting.nfcmeeting.R;
 import com.nfcmeeting.nfcmeeting.dao.AuthUser;
+import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.module.ActivityModule;
 import com.nfcmeeting.nfcmeeting.model.User;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IMainContract;
 import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
@@ -264,18 +266,11 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
         switch (itemId) {
             case R.id.nav_owned:
                 return RepositoriesFragment.create(RepositoriesFragment.RepositoriesType.OWNED,
-                        AppData.INSTANCE.getLoggedUser().getLogin());
+                        AppData.INSTANCE.getLoggedUser().getUserId().toString());
             case R.id.nav_starred:
                 return RepositoriesFragment.create(RepositoriesFragment.RepositoriesType.STARRED,
-                        AppData.INSTANCE.getLoggedUser().getLogin());
-            case R.id.nav_bookmarks:
-                return BookmarksFragment.create();
-            case R.id.nav_trace:
-                return TraceFragment.create();
-            case R.id.nav_collections:
-                return CollectionsFragment.create();
-            case R.id.nav_topics:
-                return TopicsFragment.create();
+                        AppData.INSTANCE.getLoggedUser().getUserId());
+
         }
         return null;
     }
