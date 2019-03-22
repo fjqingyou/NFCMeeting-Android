@@ -2,8 +2,7 @@
 
 package com.nfcmeeting.nfcmeeting.mvp.contract;
 
-
-
+import com.nfcmeeting.nfcmeeting.model.PageInfo;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseListContract;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBasePagerContract;
@@ -23,7 +22,7 @@ public interface IRepositoriesContract {
     }
 
     interface Presenter extends IBasePagerContract.Presenter<IRepositoriesContract.View> {
-        void loadRepositories(boolean isReLoad, int page);
+        void loadRepositories(boolean isReLoad, PageInfo page);
         void loadRepositories(RepositoriesFilter filter);
     }
 

@@ -14,10 +14,6 @@ import com.nfcmeeting.nfcmeeting.util.ViewUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ThirtyDegreesRay on 2017/11/9 16:30:13
- */
-
 public class RepositoriesFilter implements Parcelable {
 
     public final static RepositoriesFilter DEFAULT = new RepositoriesFilter();

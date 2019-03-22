@@ -15,8 +15,11 @@
     <string name="page_no_found">Page not found.</string>
     <string name="unauthorized">Unauthorized.</string>
 
-    <string name="no_network_tip">Loading data from NFCMeeting failed. Please check your network connection and retry.</string>
-    <string name="load_timeout_tip">Loading data from NFCMeeting timed out. Please check your network connection and retry.</string>
+    <string name="no_network_tip">Loading data from NFCMeeting failed. Please check your network connection and retry.
+    </string>
+    <string name="load_timeout_tip">Loading data from NFCMeeting timed out. Please check your network connection and
+        retry.
+    </string>
     <string name="loading">loading</string>
     <string name="invalid_url">Invalid url!</string>
 
@@ -75,6 +78,12 @@
     <string name="most_recently_joined">Most recently joined</string>
     <string name="least_recently_joined">Least recently joined</string>
     <string name="info">Info</string>
+    <string name="no_repository">No meetings</string>
+    <string name="title_activity_repository">RepositoryActivity</string>
+    <string name="fork_tag">Fork</string>
+    <string name="warning_dialog_tile">Warning</string>
+    <string name="logout_warning">Confirm to logout?</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

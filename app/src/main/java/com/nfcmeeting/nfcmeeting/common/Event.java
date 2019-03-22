@@ -5,6 +5,8 @@ package com.nfcmeeting.nfcmeeting.common;
 //import com.thirtydegreesray.openhub.mvp.model.Repository;
 //import com.thirtydegreesray.openhub.mvp.model.SearchModel;
 
+import com.nfcmeeting.nfcmeeting.mvp.model.SearchModel;
+
 /**
  * 事件
  * Created by ThirtyDegreesRay on 2016/8/22 14:32
@@ -46,12 +48,12 @@ public class Event {
 //        }
 //    }
 //
-//    public static class SearchEvent{
-//        public SearchModel searchModel;
-//
-//        public SearchEvent(SearchModel searchModel) {
-//            this.searchModel = searchModel;
-//        }
-//    }
+    public static class SearchEvent{
+        public SearchModel searchModel;
+
+        public SearchEvent(SearchModel searchModel) {
+            this.searchModel = searchModel;
+        }
+    }
 
 }

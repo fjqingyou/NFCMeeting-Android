@@ -21,8 +21,10 @@ import android.widget.TextView;
 
 import com.nfcmeeting.nfcmeeting.AppData;
 import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.common.GlideApp;
 import com.nfcmeeting.nfcmeeting.dao.AuthUser;
 import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.component.DaggerActivityComponent;
 import com.nfcmeeting.nfcmeeting.inject.module.ActivityModule;
 import com.nfcmeeting.nfcmeeting.model.User;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IMainContract;
@@ -30,6 +32,7 @@ import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.MainPresenter;
 import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseDrawerActivity;
 import com.nfcmeeting.nfcmeeting.ui.fragment.RepositoriesFragment;
+import com.nfcmeeting.nfcmeeting.ui.fragment.base.BaseFragment;
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
 import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
@@ -269,7 +272,7 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
                         AppData.INSTANCE.getLoggedUser().getUserId().toString());
             case R.id.nav_starred:
                 return RepositoriesFragment.create(RepositoriesFragment.RepositoriesType.STARRED,
-                        AppData.INSTANCE.getLoggedUser().getUserId());
+                        AppData.INSTANCE.getLoggedUser().getUserId().toString());
 
         }
         return null;
@@ -335,9 +338,7 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(newYearWishesDialog != null){
-            newYearWishesDialog.cancel();
-        }
+
     }
 
     private boolean isManageAccount = false;
@@ -353,24 +354,24 @@ public class MainActivity extends BaseDrawerActivity<MainPresenter>
         }
         Menu menu = navViewStart.getMenu();
 
-        if(!isAccountsAdded){
-            isAccountsAdded = true;
-            List<AuthUser> users = mPresenter.getLoggedUserList();
-            for(AuthUser user : users){
-                MenuItem menuItem = menu.add(R.id.manage_accounts, Menu.NONE, 1, user.getLoginId())
-                        .setIcon(R.drawable.ic_menu_person)
-                        .setOnMenuItemClickListener(item -> {
-                            mPresenter.toggleAccount(item.getTitle().toString());
-                            return true;
-                        });
-            }
-        }
+//        if(!isAccountsAdded){
+//            isAccountsAdded = true;
+//            List<AuthUser> users = mPresenter.getLoggedUserList();
+//            for(AuthUser user : users){
+//                MenuItem menuItem = menu.add(R.id.manage_accounts, Menu.NONE, 1, user.getLoginId())
+//                        .setIcon(R.drawable.ic_menu_person)
+//                        .setOnMenuItemClickListener(item -> {
+//                            mPresenter.toggleAccount(item.getTitle().toString());
+//                            return true;
+//                        });
+//            }
+//        }
 
         menu.setGroupVisible(R.id.my_account, isManageAccount);
-        menu.setGroupVisible(R.id.manage_accounts, isManageAccount);
+        //menu.setGroupVisible(R.id.manage_accounts, isManageAccount);
 
         menu.setGroupVisible(R.id.my, !isManageAccount);
-        menu.setGroupVisible(R.id.repositories, !isManageAccount);
+        menu.setGroupVisible(R.id.meetings, !isManageAccount);
         menu.setGroupVisible(R.id.search, !isManageAccount);
         menu.setGroupVisible(R.id.setting, !isManageAccount);
 

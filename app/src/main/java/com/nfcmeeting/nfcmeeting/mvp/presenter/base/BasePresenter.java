@@ -18,6 +18,7 @@ import com.nfcmeeting.nfcmeeting.common.AppEventBus;
 import com.nfcmeeting.nfcmeeting.dao.DaoSession;
 import com.nfcmeeting.nfcmeeting.http.LoginService;
 import com.nfcmeeting.nfcmeeting.http.MeetingService;
+import com.nfcmeeting.nfcmeeting.http.SearchService;
 import com.nfcmeeting.nfcmeeting.http.UserService;
 import com.nfcmeeting.nfcmeeting.http.core.AppRetrofit;
 import com.nfcmeeting.nfcmeeting.http.core.HttpObserver;
@@ -155,6 +156,10 @@ public abstract class BasePresenter<V extends IBaseContract.View> implements IBa
 
     protected MeetingService getMeetingService() {
         return getServices(MeetingService.class);
+    }
+
+    protected SearchService getSearchService() {
+        return getServices(SearchService.class);
     }
 
     private <T> T getServices(Class<T> serviceClass){

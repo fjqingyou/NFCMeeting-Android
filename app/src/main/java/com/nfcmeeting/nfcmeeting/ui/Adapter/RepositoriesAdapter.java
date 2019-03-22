@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.common.GlideApp;
 import com.nfcmeeting.nfcmeeting.mvp.model.Repository;
 import com.nfcmeeting.nfcmeeting.ui.Adapter.base.BaseAdapter;
 import com.nfcmeeting.nfcmeeting.ui.Adapter.base.BaseViewHolder;
@@ -23,7 +24,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
+import com.nfcmeeting.nfcmeeting.util.PrefUtils;
+import com.nfcmeeting.nfcmeeting.util.StringUtils;
+import com.nfcmeeting.nfcmeeting.util.ViewUtils;
 
 
 public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHolder, Repository> {
@@ -64,35 +67,35 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
             super(itemView);
         }
 
-        @OnClick(R.id.iv_user_avatar)
-        public void onUserClick(){
-            if(getAdapterPosition() != RecyclerView.NO_POSITION){
-                ProfileActivity.show((Activity) context, ivUserAvatar, data.get(getAdapterPosition()).getOwner().getLogin(),
-                        data.get(getAdapterPosition()).getOwner().getAvatarUrl());
-            }
-        }
+//        @OnClick(R.id.iv_user_avatar)
+//        public void onUserClick(){
+//            if(getAdapterPosition() != RecyclerView.NO_POSITION){
+//                ProfileActivity.show((Activity) context, ivUserAvatar, data.get(getAdapterPosition()).getOwner().getLogin(),
+//                        data.get(getAdapterPosition()).getOwner().getAvatarUrl());
+//            }
+//        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         Repository repository = data.get(position);
-        boolean hasOwnerAvatar = !StringUtils.isBlank(repository.getOwner().getAvatarUrl());
-        holder.tvRepoName.setText(hasOwnerAvatar ? repository.getName(): repository.getFullName());
-        ViewUtils.setTextView(holder.tvRepoDescription, repository.getDescription());
-        holder.tvStarNum.setText(String.valueOf(repository.getStargazersCount()));
-        holder.tvForkNum.setText(String.valueOf(repository.getForksCount()));
-        holder.tvOwnerName.setText(repository.getOwner().getLogin());
+        boolean hasOwnerAvatar = !StringUtils.isBlank(repository.getModeratorName());
+        holder.tvRepoName.setText(repository.getTitle());
+        ViewUtils.setTextView(holder.tvRepoDescription, repository.getContent());
+        holder.tvStarNum.setText(String.valueOf(repository.getBeginTime()));
+        holder.tvForkNum.setText(String.valueOf(repository.getEndTime()));
+        holder.tvOwnerName.setText(repository.getModeratorName());
 
-        if(StringUtils.isBlank(repository.getLanguage())){
-            holder.tvLanguage.setText("");
-            holder.languageColor.setVisibility(View.INVISIBLE);
-        } else {
-            holder.languageColor.setVisibility(View.VISIBLE);
-            holder.tvLanguage.setText(repository.getLanguage());
-            int languageColor = LanguageColorsHelper.INSTANCE.getColor(context, repository.getLanguage());
-            holder.languageColor.setImageTintList(ColorStateList.valueOf(languageColor));
-        }
+//        if(StringUtils.isBlank(repository.getLanguage())){
+//            holder.tvLanguage.setText("");
+//            holder.languageColor.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.languageColor.setVisibility(View.VISIBLE);
+//            holder.tvLanguage.setText(repository.getLanguage());
+//            int languageColor = LanguageColorsHelper.INSTANCE.getColor(context, repository.getLanguage());
+//            holder.languageColor.setImageTintList(ColorStateList.valueOf(languageColor));
+//        }
 
 
         if(hasOwnerAvatar){
@@ -100,33 +103,10 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
             holder.ownerLay.setVisibility(View.VISIBLE);
             holder.sinceStarLay.setVisibility(View.GONE);
             GlideApp.with(fragment)
-                    .load(repository.getOwner().getAvatarUrl())
+                    .load(repository.getModeratorAvatar())
                     .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
                     .into(holder.ivUserAvatar);
-        } else {
-            holder.ivUserAvatar.setVisibility(View.GONE);
-            holder.ownerLay.setVisibility(View.GONE);
-            if (repository.getSinceStargazersCount() == 0) {
-                holder.sinceStarLay.setVisibility(View.INVISIBLE);
-            } else {
-                holder.sinceStarLay.setVisibility(View.VISIBLE);
-                switch (repository.getSince()) {
-                    case Daily:
-                        holder.tvSinceStarNum.setText(String.format(getString(R.string.star_num_today),
-                                repository.getSinceStargazersCount()));
-                        break;
-                    case Weekly:
-                        holder.tvSinceStarNum.setText(String.format(getString(R.string.star_num_this_week),
-                                repository.getSinceStargazersCount()));
-                        break;
-                    case Monthly:
-                        holder.tvSinceStarNum.setText(String.format(getString(R.string.star_num_this_month),
-                                repository.getSinceStargazersCount()));
-                        break;
-                }
-            }
         }
 
-        holder.forkMark.setVisibility(repository.isFork() ? View.VISIBLE : View.GONE);
     }
 }

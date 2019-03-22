@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import com.orhanobut.logger.Logger;
 
 /**
- * Created by ThirtyDegreesRay on 2017/12/26 16:35:06 <br>
  * Add catcher to avoid RecyclerView IndexOutOfBoundsException.
  */
 

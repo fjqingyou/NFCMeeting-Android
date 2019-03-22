@@ -5,15 +5,21 @@ package com.nfcmeeting.nfcmeeting.mvp.presenter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.common.Event;
 import com.nfcmeeting.nfcmeeting.dao.DaoSession;
 import com.nfcmeeting.nfcmeeting.http.core.HttpObserver;
 import com.nfcmeeting.nfcmeeting.http.core.HttpResponse;
+import com.nfcmeeting.nfcmeeting.http.error.HttpPageNoFoundError;
+import com.nfcmeeting.nfcmeeting.model.PageInfo;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IRepositoriesContract;
 import com.nfcmeeting.nfcmeeting.mvp.model.Repository;
 import com.nfcmeeting.nfcmeeting.mvp.model.SearchModel;
+import com.nfcmeeting.nfcmeeting.mvp.model.SearchResult;
 import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.base.BasePagerPresenter;
 import com.nfcmeeting.nfcmeeting.ui.fragment.RepositoriesFragment;
+import com.nfcmeeting.nfcmeeting.util.StringUtils;
 import com.orhanobut.logger.Logger;
 import com.thirtydegreesray.dataautoaccess.annotation.AutoAccess;
 
@@ -72,63 +78,23 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
     @Override
     protected void loadData() {
         if (RepositoriesFragment.RepositoriesType.SEARCH.equals(type)) {
-            if (searchModel != null) searchRepos(1);
+            if (searchModel != null) searchRepos(new PageInfo());
             return;
         }
-        if (RepositoriesFragment.RepositoriesType.TRACE.equals(type)) {
-            loadTrace(1);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.BOOKMARK.equals(type)) {
-            loadBookmarks(1);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.COLLECTION.equals(type)) {
-            loadCollection(false);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.TOPIC.equals(type)) {
-            initSearchModelForTopic();
-            searchRepos(1);
-            return;
-        }
-        if(RepositoriesFragment.RepositoriesType.TRENDING.equals(type)){
-            loadTrending(false);
-            return;
-        }
-        loadRepositories(false, 1);
+
+        loadRepositories(false, new PageInfo());
     }
 
     @Override
-    public void loadRepositories(final boolean isReLoad, final int page) {
+    public void loadRepositories(final boolean isReLoad, PageInfo page) {
         filter = getFilter();
         if (type.equals(RepositoriesFragment.RepositoriesType.SEARCH)) {
             searchRepos(page);
             return;
         }
-        if (RepositoriesFragment.RepositoriesType.TRACE.equals(type)) {
-            loadTrace(page);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.BOOKMARK.equals(type)) {
-            loadBookmarks(page);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.COLLECTION.equals(type)) {
-            loadCollection(isReLoad);
-            return;
-        }
-        if (RepositoriesFragment.RepositoriesType.TOPIC.equals(type)) {
-            initSearchModelForTopic();
-            searchRepos(page);
-            return;
-        }
-        if(RepositoriesFragment.RepositoriesType.TRENDING.equals(type)){
-            loadTrending(isReLoad);
-            return;
-        }
+
         mView.showLoading();
-        final boolean readCacheFirst = !isReLoad && page == 1;
+        final boolean readCacheFirst = !isReLoad && page.getPageNum() == 1;
 
         HttpObserver<ArrayList<Repository>> httpObserver = new HttpObserver<ArrayList<Repository>>() {
             @Override
@@ -140,7 +106,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
             @Override
             public void onSuccess(@NonNull HttpResponse<ArrayList<Repository>> response) {
                 mView.hideLoading();
-                if (isReLoad || readCacheFirst || repos == null || page == 1) {
+                if (isReLoad || readCacheFirst || repos == null || page.getPageNum() == 1) {
                     repos = response.body();
                 } else {
                     repos.addAll(response.body());
@@ -166,28 +132,22 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
     @Override
     public void loadRepositories(RepositoriesFilter filter) {
         this.filter = filter;
-        loadRepositories(false, 1);
+        loadRepositories(false, new PageInfo());
     }
 
-    private Observable<Response<ArrayList<Repository>>> getObservable(boolean forceNetWork, int page) {
+    private Observable<Response<ArrayList<Repository>>> getObservable(boolean forceNetWork, PageInfo page) {
         switch (type) {
             case OWNED:
-                return getMeetingService().getUserRepos(forceNetWork, page, filter.getType(),
-                        filter.getSort(), filter.getSortDirection());
-            case PUBLIC:
-                return getRepoService().getUserPublicRepos(forceNetWork, user, page,
-                        filter.getType(), filter.getSort(), filter.getSortDirection());
+                return getMeetingService().getToAttendMeeting(forceNetWork, page);
             case STARRED:
-                return getRepoService().getStarredRepos(forceNetWork, user, page,
-                        filter.getSort(), filter.getSortDirection());
-            case FORKS:
-                return getRepoService().getForks(forceNetWork, user, repo, page);
+                return getMeetingService().getFinishedMeeting(forceNetWork,  page);
+
             default:
                 return null;
         }
     }
 
-    private void searchRepos(final int page) {
+    private void searchRepos(PageInfo page) {
         mView.showLoading();
 
         HttpObserver<SearchResult<Repository>> httpObserver =
@@ -201,7 +161,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
                     @Override
                     public void onSuccess(@NonNull HttpResponse<SearchResult<Repository>> response) {
                         mView.hideLoading();
-                        if (repos == null || page == 1) {
+                        if (repos == null || page.getPageNum() == 1) {
                             repos = response.body().getItems();
                         } else {
                             repos.addAll(response.body().getItems());
@@ -218,7 +178,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
             @Override
             public Observable<Response<SearchResult<Repository>>> createObservable(boolean forceNetWork) {
                 return getSearchService().searchRepos(searchModel.getQuery(), searchModel.getSort(),
-                        searchModel.getOrder(), page);
+                        searchModel.getOrder(), page.getPageSize(),page.getPageNum());
             }
         }, httpObserver);
     }
@@ -257,36 +217,6 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
         return filter;
     }
 
-    private void loadTrace(int page) {
-        long start = System.currentTimeMillis();
-
-        List<TraceRepo> traceRepos = daoSession.getTraceRepoDao().queryBuilder()
-                .orderDesc(TraceRepoDao.Properties.LatestTime)
-                .offset((page - 1) * 30)
-                .limit(page * 30)
-                .list();
-
-        ArrayList<Repository> queryRepos = new ArrayList<>();
-        for (TraceRepo traceRepo : traceRepos) {
-            queryRepos.add(Repository.generateFromTrace(traceRepo));
-        }
-        Logger.t("loadTrace").d(System.currentTimeMillis() - start);
-        showQueryRepos(queryRepos, page);
-    }
-
-    private void loadBookmarks(int page) {
-        List<BookMarkRepo> bookMarkRepos = daoSession.getBookMarkRepoDao().queryBuilder()
-                .orderDesc(BookMarkRepoDao.Properties.MarkTime)
-                .offset((page - 1) * 30)
-                .limit(page * 30)
-                .list();
-
-        ArrayList<Repository> queryRepos = new ArrayList<>();
-        for (BookMarkRepo bookMarkRepo : bookMarkRepos) {
-            queryRepos.add(Repository.generateFromBookmark(bookMarkRepo));
-        }
-        showQueryRepos(queryRepos, page);
-    }
 
     private void showQueryRepos(ArrayList<Repository> queryRepos, int page){
         if(repos == null || page == 1){
@@ -299,233 +229,4 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
         mView.hideLoading();
     }
 
-    public void setLanguage(TrendingLanguage language) {
-        this.language = language;
-    }
-
-    private void loadCollection(boolean isReload){
-        mView.showLoading();
-        HttpObserver<ResponseBody> httpObserver = new HttpObserver<ResponseBody>() {
-            @Override
-            public void onError(Throwable error) {
-                mView.hideLoading();
-                mView.showLoadError(getErrorTip(error));
-            }
-
-            @Override
-            public void onSuccess(HttpResponse<ResponseBody> response) {
-                try {
-                    parseCollectionsPageData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        generalRxHttpExecute(forceNetWork -> getGitHubWebPageService()
-                        .getCollectionInfo(forceNetWork, collection.getId()),
-                httpObserver, !isReload);
-
-    }
-
-    private void parseCollectionsPageData(String page){
-        Observable.just(page)
-                .map(s -> {
-                    ArrayList<Repository> repos = new ArrayList<>();
-                    try {
-                        Document doc = Jsoup.parse(s, AppConfig.GITHUB_BASE_URL);
-                        Elements elements = doc.getElementsByTag("article");
-                        for (Element element : elements) {
-                            //maybe a user or an org, so add catch
-                            try{
-                                repos.add(parseCollectionsRepositoryData(element));
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                    return repos;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(results -> {
-                    if(mView == null) return;
-                    if(results.size() != 0){
-                        repos = results;
-                        mView.hideLoading();
-                        mView.showRepositories(repos);
-                    } else {
-                        String errorTip = String.format(getString(R.string.github_page_parse_error),
-                                getString(R.string.repo_collections));
-                        mView.showLoadError(errorTip);
-                        mView.hideLoading();
-                    }
-                });
-    }
-
-    private Repository parseCollectionsRepositoryData(Element element) throws Exception{
-        String fullName = element.select("div > h1 > a").attr("href");
-        fullName = fullName.substring(1);
-        String owner = fullName.substring(0, fullName.lastIndexOf("/"));
-        String repoName = fullName.substring(fullName.lastIndexOf("/") + 1);
-//        String ownerAvatar = element.select("div > div > a > img").attr("src");
-        String ownerAvatar = "";
-
-        Elements articleElements = element.getElementsByTag("div");
-        Element descElement = articleElements.get(articleElements.size() - 2);
-        StringBuilder desc = new StringBuilder("");
-        for(TextNode textNode : descElement.textNodes()){
-            desc.append(textNode.getWholeText());
-        }
-
-        Element numElement = articleElements.last();
-        String starNumStr =  numElement.select("a").get(0).textNodes().get(1).toString();
-        String forkNumStr =  numElement.select("a").get(1).textNodes().get(1).toString();
-        String language = "";
-        Elements languageElements = numElement.select("span > span");
-        if(languageElements.size() > 0){
-            language = numElement.select("span > span").get(1).textNodes().get(0).toString();
-        }
-
-        Repository repo = new Repository();
-        repo.setFullName(fullName);
-        repo.setName(repoName);
-        User user = new User();
-        user.setLogin(owner);
-        user.setAvatarUrl(ownerAvatar);
-        repo.setOwner(user);
-
-        repo.setDescription(desc.toString());
-        repo.setStargazersCount(Integer.parseInt(starNumStr.replaceAll(" ", "")));
-        repo.setForksCount(Integer.parseInt(forkNumStr.replaceAll(" ", "")));
-        repo.setLanguage(language);
-
-        return repo;
-    }
-
-    private void initSearchModelForTopic(){
-        if(searchModel == null){
-            searchModel = new SearchModel(SearchModel.SearchType.Repository);
-            searchModel.setQuery("topic:" + topic.getId());
-        }
-    }
-
-    private void loadTrending(boolean isReload){
-        mView.showLoading();
-        HttpObserver<ResponseBody> httpObserver = new HttpObserver<ResponseBody>() {
-            @Override
-            public void onError(Throwable error) {
-                mView.hideLoading();
-                mView.showLoadError(getErrorTip(error));
-            }
-
-            @Override
-            public void onSuccess(HttpResponse<ResponseBody> response) {
-                try {
-                    parseTrendingPageData(response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        generalRxHttpExecute(forceNetWork -> getGitHubWebPageService()
-                        .getTrendingRepos(forceNetWork, language.getSlug(), since.name()),
-                httpObserver, !isReload);
-    }
-
-    private void parseTrendingPageData(String page){
-        Observable.just(page)
-                .map(s -> {
-                    ArrayList<Repository> repos = new ArrayList<>();
-                    try {
-                        Document doc = Jsoup.parse(s, AppConfig.GITHUB_BASE_URL);
-                        Elements elements = doc.getElementsByClass("col-12 d-block width-full py-4 border-bottom");
-                        if(elements.size() != 0){
-                            for (Element element : elements) {
-                                try{
-                                    repos.add(parseTrendingRepositoryData(element));
-                                } catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    } catch (Exception e){
-                        e.printStackTrace();
-                        repos = null;
-                    }
-
-                    return repos;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(results -> {
-                    if(mView == null) return;
-                    if(results != null){
-                        repos = results;
-                        mView.hideLoading();
-                        mView.showRepositories(repos);
-                    } else {
-                        String errorTip = String.format(getString(R.string.github_page_parse_error),
-                                getString(R.string.trending));
-                        mView.showLoadError(errorTip);
-                        mView.hideLoading();
-                    }
-                });
-    }
-
-    private Repository parseTrendingRepositoryData(Element element) throws Exception{
-        String fullName = element.select("div > h3 > a").attr("href");
-        fullName = fullName.substring(1);
-        String owner = fullName.substring(0, fullName.lastIndexOf("/"));
-        String repoName = fullName.substring(fullName.lastIndexOf("/") + 1);
-
-        Element descElement = element.select("div > p").first();
-        StringBuilder desc = new StringBuilder("");
-        for(TextNode textNode : descElement.textNodes()){
-            desc.append(textNode.getWholeText());
-        }
-
-        Element numElement = element.getElementsByClass("f6 text-gray mt-2").first();
-        String language = "";
-        Elements languageElements = numElement.select("span > span");
-        if(languageElements.size() > 0){
-            language = numElement.select("span > span").get(1).textNodes().get(0).toString().trim();
-        }
-        String starNumStr =  numElement.select("a").get(0).textNodes().get(1).toString()
-                .replaceAll(" ", "").replaceAll(",", "");
-        String forkNumStr =  numElement.select("a").get(1).textNodes().get(1).toString()
-                .replaceAll(" ", "").replaceAll(",", "");
-        Element periodElement =  numElement.getElementsByClass("d-inline-block float-sm-right").first();
-        String periodNumStr = "0";
-        if(periodElement != null){
-            periodNumStr = periodElement.childNodes().get(2).toString().trim();
-            periodNumStr = periodNumStr.substring(0, periodNumStr.indexOf(" "))
-                    .replaceAll(",", "");
-        }
-
-        Repository repo = new Repository();
-        repo.setFullName(fullName);
-        repo.setName(repoName);
-        User user = new User();
-        user.setLogin(owner);
-        repo.setOwner(user);
-
-        repo.setDescription(desc.toString().trim()
-                .replaceAll("\n", ""));
-        repo.setStargazersCount(Integer.parseInt(starNumStr));
-        repo.setForksCount(Integer.parseInt(forkNumStr));
-        repo.setSinceStargazersCount(Integer.parseInt(periodNumStr));
-        repo.setLanguage(language);
-        repo.setSince(since);
-
-        return repo;
-    }
-
-    public TrendingLanguage getLanguage() {
-        return language;
-    }
 }

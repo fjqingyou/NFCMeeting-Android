@@ -31,6 +31,10 @@ public class Repository implements Parcelable {
 
     private Integer moderator;
 
+    private String moderatorName;
+
+    private String moderatorAvatar;
+
     protected Repository(Parcel in) {
         if (in.readByte() == 0) {
             meetingId = null;
@@ -104,6 +108,22 @@ public class Repository implements Parcelable {
 
     public void setModerator(Integer moderator) {
         this.moderator = moderator;
+    }
+
+    public String getModeratorName() {
+        return moderatorName;
+    }
+
+    public void setModeratorName(String moderatorName) {
+        this.moderatorName = moderatorName;
+    }
+
+    public String getModeratorAvatar() {
+        return moderatorAvatar;
+    }
+
+    public void setModeratorAvatar(String moderatorAvatar) {
+        this.moderatorAvatar = moderatorAvatar;
     }
 
     @Override

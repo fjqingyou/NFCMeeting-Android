@@ -10,8 +10,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
+import com.nfcmeeting.nfcmeeting.inject.component.DaggerFragmentComponent;
+import com.nfcmeeting.nfcmeeting.inject.module.FragmentModule;
+import com.nfcmeeting.nfcmeeting.model.PageInfo;
 import com.nfcmeeting.nfcmeeting.mvp.contract.IRepositoriesContract;
+import com.nfcmeeting.nfcmeeting.mvp.model.Repository;
+import com.nfcmeeting.nfcmeeting.mvp.model.SearchModel;
+import com.nfcmeeting.nfcmeeting.mvp.model.filter.RepositoriesFilter;
 import com.nfcmeeting.nfcmeeting.mvp.presenter.RepositoriesPresenter;
+import com.nfcmeeting.nfcmeeting.ui.Adapter.RepositoriesAdapter;
+import com.nfcmeeting.nfcmeeting.ui.activity.RepositoryActivity;
+import com.nfcmeeting.nfcmeeting.ui.fragment.base.ListFragment;
 import com.nfcmeeting.nfcmeeting.ui.fragment.base.OnDrawerSelectedListener;
 import com.nfcmeeting.nfcmeeting.util.BundleHelper;
 
@@ -40,23 +51,7 @@ public class RepositoriesFragment extends ListFragment<RepositoriesPresenter, Re
         return fragment;
     }
 
-    public static RepositoriesFragment createForCollection(@NonNull Collection collection){
-        RepositoriesFragment fragment = new RepositoriesFragment();
-        fragment.setArguments(BundleHelper.builder()
-                .put("type", RepositoriesType.COLLECTION)
-                .put("collection", collection)
-                .build());
-        return fragment;
-    }
 
-    public static RepositoriesFragment createForTopic(@NonNull Topic topic){
-        RepositoriesFragment fragment = new RepositoriesFragment();
-        fragment.setArguments(BundleHelper.builder()
-                .put("type", RepositoriesType.TOPIC)
-                .put("topic", topic)
-                .build());
-        return fragment;
-    }
 
     public static RepositoriesFragment createForForks(@NonNull String user, @NonNull String repo){
         RepositoriesFragment fragment = new RepositoriesFragment();
@@ -79,28 +74,8 @@ public class RepositoriesFragment extends ListFragment<RepositoriesPresenter, Re
         return fragment;
     }
 
-    public static RepositoriesFragment createForTrending(@NonNull TrendingSince since){
-        RepositoriesFragment fragment = new RepositoriesFragment();
-        fragment.setArguments(
-                BundleHelper.builder()
-                        .put("type", RepositoriesType.TRENDING)
-                        .put("since", since)
-                        .build()
-        );
-        return fragment;
-    }
 
-    public static RepositoriesFragment createForTrace(){
-        RepositoriesFragment fragment = new RepositoriesFragment();
-        fragment.setArguments(BundleHelper.builder().put("type", RepositoriesType.TRACE).build());
-        return fragment;
-    }
 
-    public static RepositoriesFragment createForBookmark(){
-        RepositoriesFragment fragment = new RepositoriesFragment();
-        fragment.setArguments(BundleHelper.builder().put("type", RepositoriesType.BOOKMARK).build());
-        return fragment;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,33 +111,24 @@ public class RepositoriesFragment extends ListFragment<RepositoriesPresenter, Re
 
     @Override
     protected void onReLoadData() {
-        mPresenter.loadRepositories(true, 1);
+        mPresenter.loadRepositories(true, new PageInfo());
     }
 
     @Override
     protected String getEmptyTip() {
-        if(RepositoriesType.TRENDING.equals(mPresenter.getType())){
-            return String.format(getString(R.string.no_trending_repos), mPresenter.getLanguage().getName());
-        }
+
         return getString(R.string.no_repository);
     }
 
     @Override
     public void onItemClick(int position, @NonNull View view) {
         super.onItemClick(position, view);
-        if(RepositoriesType.TRENDING.equals(mPresenter.getType())
-                || RepositoriesType.TRACE.equals(mPresenter.getType())
-                || RepositoriesType.BOOKMARK.equals(mPresenter.getType())
-                || RepositoriesType.COLLECTION.equals(mPresenter.getType())){
-            RepositoryActivity.show(getActivity(), adapter.getData().get(position).getOwner().getLogin(),
-                    adapter.getData().get(position).getName());
-        } else {
             RepositoryActivity.show(getActivity(), adapter.getData().get(position));
-        }
+
     }
 
     @Override
-    protected void onLoadMore(int page) {
+    protected void onLoadMore(PageInfo page) {
         super.onLoadMore(page);
         mPresenter.loadRepositories(false, page);
     }
@@ -196,15 +162,5 @@ public class RepositoriesFragment extends ListFragment<RepositoriesPresenter, Re
         mPresenter.loadRepositories(filter);
     }
 
-    @Override
-    public void onLanguageUpdate(TrendingLanguage language) {
-        if(mPresenter != null){
-            mPresenter.setLanguage(language);
-            mPresenter.setLoaded(false);
-            mPresenter.prepareLoadData();
-        } else {
-            getArguments().putParcelable("language", language);
-        }
-    }
 
 }

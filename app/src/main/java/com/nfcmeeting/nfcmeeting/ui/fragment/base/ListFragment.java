@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.nfcmeeting.nfcmeeting.R;
+import com.nfcmeeting.nfcmeeting.model.PageInfo;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
 import com.nfcmeeting.nfcmeeting.ui.Adapter.base.BaseAdapter;
 import com.nfcmeeting.nfcmeeting.ui.Adapter.base.BaseViewHolder;
@@ -112,7 +113,13 @@ public abstract class ListFragment<P extends IBaseContract.Presenter, A extends 
                 LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                 int lastPosition = linearManager.findLastVisibleItemPosition();
                 if(lastPosition == adapter.getItemCount() - 1){
-                    onLoadMore(++curPage);
+
+                    ++curPage;
+                    onLoadMore(new PageInfo(){
+                        {
+                            setPageNum(curPage);
+                        }
+                    });
                 }
             }
         }
@@ -222,8 +229,8 @@ public abstract class ListFragment<P extends IBaseContract.Presenter, A extends 
         return 0;
     }
 
-    protected void onLoadMore(int page){
-        if(page == 3 && PrefUtils.isDoubleClickTitleTipAble()){
+    protected void onLoadMore(PageInfo page){
+        if(page.getPageNum() == 3 && PrefUtils.isDoubleClickTitleTipAble()){
             showOperationTip(R.string.double_click_toolbar_tip);
             PrefUtils.set(PrefUtils.DOUBLE_CLICK_TITLE_TIP_ABLE, false);
         }
