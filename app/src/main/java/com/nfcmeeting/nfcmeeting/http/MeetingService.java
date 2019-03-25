@@ -30,4 +30,10 @@ public interface MeetingService {
             @Header("forceNetWork") boolean forceNetWork,
             @NonNull @Body PageInfo page
     );
+
+    @POST("meeting/getAllMeeting")
+    Observable<Response<ArrayList<Repository>>> getAllMeeting(
+            @Header("forceNetWork") boolean forceNetWork,
+            @NonNull @Body PageInfo page
+    );
 }

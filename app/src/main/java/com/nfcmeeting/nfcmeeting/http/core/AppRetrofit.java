@@ -121,11 +121,13 @@ public enum AppRetrofit {
 //            Log.d(TAG, request.url().toString());
 
             if (!HttpUtil.getFileName(request.url()).equals("login")){
+                Log.i(TAG, "intercept: token："+token);
                 request = request.newBuilder()
-                        .addHeader("Cookie",token)
+                        .header("Cookie",token)
+//                        .addHeader("Cookie",token)
                         .build();
             }
-
+            Log.i(TAG, "intercept: Cookie"+request.header("Cookie"));
             //第二次请求，强制使用网络请求
             String forceNetWork = request.header("forceNetWork");
             //有forceNetWork且无网络状态下取从缓存中取

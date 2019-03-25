@@ -118,7 +118,7 @@ public class SplashPresenter extends BasePresenter<ISplashContract.View>
             public Observable<Response<User>> createObservable(boolean forceNetWork) {
                 return getUserService().getPersonInfo(forceNetWork);
             }
-        }, httpObserver, true);
+        }, httpObserver, false);
 
     }
 
