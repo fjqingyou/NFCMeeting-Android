@@ -4,6 +4,7 @@ package com.nfcmeeting.nfcmeeting.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.nfcmeeting.nfcmeeting.R;
 import com.nfcmeeting.nfcmeeting.common.Event;
@@ -99,6 +100,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
         HttpObserver<ArrayList<Repository>> httpObserver = new HttpObserver<ArrayList<Repository>>() {
             @Override
             public void onError(@NonNull Throwable error) {
+                Log.e("getAllMeeting", "onError: ", error);
                 mView.hideLoading();
                 handleError(error);
             }
@@ -197,6 +199,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
         } else if (error instanceof HttpPageNoFoundError) {
             mView.showRepositories(new ArrayList<Repository>());
         } else {
+            error.printStackTrace();
             mView.showLoadError(getErrorTip(error));
         }
     }

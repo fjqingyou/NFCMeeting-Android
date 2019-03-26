@@ -62,10 +62,10 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
         @BindView(R.id.tv_star_num) TextView tvStarNum;
         @BindView(R.id.tv_fork_num) TextView tvForkNum;
         @BindView(R.id.tv_owner_name) TextView tvOwnerName;
-        @BindView(R.id.tv_since_star_num) TextView tvSinceStarNum;
-        @BindView(R.id.since_star_lay) LinearLayout sinceStarLay;
+        //@BindView(R.id.tv_since_star_num) TextView tvSinceStarNum;
+        //@BindView(R.id.since_star_lay) LinearLayout sinceStarLay;
         @BindView(R.id.owner_lay) LinearLayout ownerLay;
-        @BindView(R.id.fork_mark) View forkMark;
+        //@BindView(R.id.fork_mark) View forkMark;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +94,11 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
         holder.tvForkNum.setText(dateFormat.format(repository.getEndTime()));
         holder.tvOwnerName.setText(repository.getModeratorName());
 
+        GlideApp.with(fragment)
+                .load(repository.getModeratorAvatar())
+                .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
+                .into(holder.ivUserAvatar);
+
 //        if(StringUtils.isBlank(repository.getLanguage())){
 //            holder.tvLanguage.setText("");
 //            holder.languageColor.setVisibility(View.INVISIBLE);
@@ -105,15 +110,15 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
 //        }
 
 
-        if(hasOwnerAvatar){
-            holder.ivUserAvatar.setVisibility(View.VISIBLE);
-            holder.ownerLay.setVisibility(View.VISIBLE);
-            holder.sinceStarLay.setVisibility(View.GONE);
-            GlideApp.with(fragment)
-                    .load(repository.getModeratorAvatar())
-                    .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
-                    .into(holder.ivUserAvatar);
-        }
+//        if(hasOwnerAvatar){
+//            holder.ivUserAvatar.setVisibility(View.VISIBLE);
+//            holder.ownerLay.setVisibility(View.VISIBLE);
+//            holder.sinceStarLay.setVisibility(View.GONE);
+//            GlideApp.with(fragment)
+//                    .load(repository.getModeratorAvatar())
+//                    .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
+//                    .into(holder.ivUserAvatar);
+//        }
 
     }
 }

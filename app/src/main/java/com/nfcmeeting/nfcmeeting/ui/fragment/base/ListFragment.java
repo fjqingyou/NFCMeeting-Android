@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public abstract class ListFragment<P extends IBaseContract.Presenter, A extends 
     private boolean autoJudgeCanLoadMoreEnable = true;
     private boolean isLoading = false;
     private final int DEFAULT_PAGE_SIZE = 30;
+    private String TAG = "ListFragment";
 
     @Override
     protected void initFragment(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public abstract class ListFragment<P extends IBaseContract.Presenter, A extends 
                 super.onChanged();
                 int itemCount = adapter.getItemCount();
                 if (itemCount == 0) {
+                    Log.i(TAG, "no data");
                     refreshLayout.setVisibility(View.GONE);
                     layTip.setVisibility(View.VISIBLE);
                     tvTip.setText(getEmptyTip());
@@ -169,6 +172,7 @@ public abstract class ListFragment<P extends IBaseContract.Presenter, A extends 
     }
 
     protected void setErrorTip(String errorTip){
+        Log.i(TAG, "setErrorTip");
         refreshLayout.setVisibility(View.GONE);
         errorImage.setVisibility(View.VISIBLE);
         layTip.setVisibility(View.VISIBLE);

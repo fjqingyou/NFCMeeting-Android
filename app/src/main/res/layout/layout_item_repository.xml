@@ -87,7 +87,7 @@
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        app:srcCompat="@drawable/ic_menu_star"
+                        app:srcCompat="@drawable/ic_calendar_begin"
                         android:tint="?android:textColorSecondary"/>
                     <TextView
                         android:id="@+id/tv_star_num"
@@ -107,7 +107,7 @@
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        app:srcCompat="@drawable/ic_fork"
+                        app:srcCompat="@drawable/ic_calendar_end"
                         android:tint="?android:textColorSecondary"/>
                     <TextView
                         android:id="@+id/tv_fork_num"
@@ -123,7 +123,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
                     android:gravity="center_vertical">
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="14dp"
@@ -140,50 +140,50 @@
                         android:layout_marginLeft="@dimen/spacing_mini"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/fork_mark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/spacing_mini"
-                    android:layout_marginRight="@dimen/spacing_mini">
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:srcCompat="@drawable/ic_fork"
-                        android:tint="?android:textColorPrimary"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_mini"
-                        android:textColor="?android:textColorPrimary"
-                        android:text="@string/fork_tag"
-                        android:layout_marginStart="@dimen/spacing_mini"/>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/fork_mark"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="@dimen/spacing_mini"-->
+                    <!--android:layout_marginRight="@dimen/spacing_mini">-->
+                    <!--<android.support.v7.widget.AppCompatImageView-->
+                        <!--android:layout_width="14dp"-->
+                        <!--android:layout_height="14dp"-->
+                        <!--app:srcCompat="@drawable/ic_fork"-->
+                        <!--android:tint="?android:textColorPrimary"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/text_mini"-->
+                        <!--android:textColor="?android:textColorPrimary"-->
+                        <!--android:text="@string/fork_tag"-->
+                        <!--android:layout_marginStart="@dimen/spacing_mini"/>-->
+                <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:id="@+id/since_star_lay"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:visibility="gone">
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:srcCompat="@drawable/ic_menu_star"
-                        android:tint="?android:textColorSecondary"/>
-                    <TextView
-                        android:id="@+id/tv_since_star_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_mini"
-                        android:textColor="?android:textColorSecondary"
-                        android:layout_marginStart="@dimen/spacing_mini"
-                        android:layout_marginEnd="@dimen/spacing_mini"/>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/since_star_lay"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:visibility="gone">-->
+                    <!--<android.support.v7.widget.AppCompatImageView-->
+                        <!--android:layout_width="14dp"-->
+                        <!--android:layout_height="14dp"-->
+                        <!--app:srcCompat="@drawable/ic_menu_star"-->
+                        <!--android:tint="?android:textColorSecondary"/>-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_since_star_num"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/text_mini"-->
+                        <!--android:textColor="?android:textColorSecondary"-->
+                        <!--android:layout_marginStart="@dimen/spacing_mini"-->
+                        <!--android:layout_marginEnd="@dimen/spacing_mini"/>-->
+                <!--</LinearLayout>-->
 
             </LinearLayout>
         </LinearLayout>
