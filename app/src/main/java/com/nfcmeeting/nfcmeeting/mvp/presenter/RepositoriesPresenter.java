@@ -142,7 +142,7 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
             case OWNED:
                 return getMeetingService().getAllMeeting(forceNetWork, page);
             case STARRED:
-                return getMeetingService().getFinishedMeeting(forceNetWork,  page);
+                return getMeetingService().getStaredMeeting(forceNetWork,  page);
 
             default:
                 return null;

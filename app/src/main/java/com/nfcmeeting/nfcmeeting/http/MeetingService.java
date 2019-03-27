@@ -19,11 +19,17 @@ import java.util.ArrayList;
 public interface MeetingService {
 
 
-    @POST("meeting/getFinishedMeeting")
-    Observable<Response<ArrayList<Repository>>> getFinishedMeeting(
+    @POST("meeting/getStaredMeeting")
+    Observable<Response<ArrayList<Repository>>> getStaredMeeting(
             @Header("forceNetWork") boolean forceNetWork,
                     @NonNull @Body PageInfo page
             );
+
+    @POST("meeting/getFinishedMeeting")
+    Observable<Response<ArrayList<Repository>>> getFinishedMeeting(
+            @Header("forceNetWork") boolean forceNetWork,
+            @NonNull @Body PageInfo page
+    );
 
     @POST("meeting/getToAttendMeeting")
     Observable<Response<ArrayList<Repository>>> getToAttendMeeting(

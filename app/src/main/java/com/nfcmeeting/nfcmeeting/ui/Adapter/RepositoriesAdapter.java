@@ -2,11 +2,8 @@
 
 package com.nfcmeeting.nfcmeeting.ui.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +21,7 @@ import com.nfcmeeting.nfcmeeting.ui.fragment.base.BaseFragment;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
 import com.nfcmeeting.nfcmeeting.util.StringUtils;
 import com.nfcmeeting.nfcmeeting.util.ViewUtils;
@@ -55,9 +52,9 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
     public class ViewHolder extends BaseViewHolder {
 
         @BindView(R.id.iv_user_avatar) ImageView ivUserAvatar;
-        @BindView(R.id.language_color) ImageView languageColor;
+        @BindView(R.id.status_color) ImageView languageColor;
         @BindView(R.id.tv_repo_name) TextView tvRepoName;
-        @BindView(R.id.tv_language) TextView tvLanguage;
+        @BindView(R.id.tv_status) TextView tvStatus;
         @BindView(R.id.tv_repo_description) TextView tvRepoDescription;
         @BindView(R.id.tv_star_num) TextView tvStarNum;
         @BindView(R.id.tv_fork_num) TextView tvForkNum;
@@ -99,12 +96,14 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
                 .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
                 .into(holder.ivUserAvatar);
 
+
+
 //        if(StringUtils.isBlank(repository.getLanguage())){
-//            holder.tvLanguage.setText("");
+//            holder.tvStatus.setText("");
 //            holder.languageColor.setVisibility(View.INVISIBLE);
 //        } else {
 //            holder.languageColor.setVisibility(View.VISIBLE);
-//            holder.tvLanguage.setText(repository.getLanguage());
+//            holder.tvStatus.setText(repository.getLanguage());
 //            int languageColor = LanguageColorsHelper.INSTANCE.getColor(context, repository.getLanguage());
 //            holder.languageColor.setImageTintList(ColorStateList.valueOf(languageColor));
 //        }

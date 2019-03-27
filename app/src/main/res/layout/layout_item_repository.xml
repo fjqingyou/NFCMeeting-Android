@@ -47,7 +47,7 @@
                     android:ellipsize="end"/>
 
                 <TextView
-                    android:id="@+id/tv_language"
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_mini"
@@ -55,7 +55,7 @@
                     android:layout_marginStart="@dimen/spacing_mini"
                     android:layout_gravity="center_vertical"/>
                 <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/language_color"
+                    android:id="@+id/status_color"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginStart="@dimen/spacing_mini"
