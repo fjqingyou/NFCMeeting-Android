@@ -11,7 +11,7 @@ import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseActivity;
 
 
 /**
- * Created on 2017/10/30 13:26:25
+ * Created_Time on 2017/10/30 13:26:25
  * Copied from Copyright (C) 2017 Kosh.
  * Modified by Copyright (C) 2017 ThirtyDegreesRay.
  */

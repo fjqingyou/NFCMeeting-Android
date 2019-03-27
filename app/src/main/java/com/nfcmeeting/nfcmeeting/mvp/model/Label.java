@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by ThirtyDegreesRay on 2018/1/10 16:05:39
+ * Created_Time by ThirtyDegreesRay on 2018/1/10 16:05:39
  */
 
 public class Label implements Parcelable {

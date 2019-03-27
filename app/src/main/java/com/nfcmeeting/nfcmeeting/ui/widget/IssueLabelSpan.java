@@ -14,7 +14,7 @@ import com.nfcmeeting.nfcmeeting.util.ViewUtils;
 
 
 /**
- * Created by ThirtyDegreesRay on 2018/1/21 15:18:55
+ * Created_Time by ThirtyDegreesRay on 2018/1/21 15:18:55
  */
 
 public class IssueLabelSpan extends ReplacementSpan {

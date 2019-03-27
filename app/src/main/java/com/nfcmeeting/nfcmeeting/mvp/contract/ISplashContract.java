@@ -5,7 +5,7 @@ package com.nfcmeeting.nfcmeeting.mvp.contract;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
 
 /**
- * Created on 2017/7/12.
+ * Created_Time on 2017/7/12.
  *
  * @author ThirtyDegreesRay
  */

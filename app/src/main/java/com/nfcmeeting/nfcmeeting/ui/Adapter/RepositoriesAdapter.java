@@ -2,8 +2,11 @@
 
 package com.nfcmeeting.nfcmeeting.ui.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,11 +26,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
+import com.nfcmeeting.nfcmeeting.util.StatusHelper;
 import com.nfcmeeting.nfcmeeting.util.StringUtils;
 import com.nfcmeeting.nfcmeeting.util.ViewUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 
 public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHolder, Repository> {
@@ -52,7 +58,7 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
     public class ViewHolder extends BaseViewHolder {
 
         @BindView(R.id.iv_user_avatar) ImageView ivUserAvatar;
-        @BindView(R.id.status_color) ImageView languageColor;
+        @BindView(R.id.status_color) ImageView statuaColor;
         @BindView(R.id.tv_repo_name) TextView tvRepoName;
         @BindView(R.id.tv_status) TextView tvStatus;
         @BindView(R.id.tv_repo_description) TextView tvRepoDescription;
@@ -91,19 +97,22 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
         holder.tvForkNum.setText(dateFormat.format(repository.getEndTime()));
         holder.tvOwnerName.setText(repository.getModeratorName());
 
+        Map<String,Object> status = StatusHelper.INSTANCE.getStatus(new Date(),repository);
+        holder.tvStatus.setText((String)status.get("status"));
+        holder.statuaColor.setImageTintList(ColorStateList.valueOf((Integer) status.get("color")));
+
+
         GlideApp.with(fragment)
                 .load(repository.getModeratorAvatar())
                 .onlyRetrieveFromCache(!PrefUtils.isLoadImageEnable())
                 .into(holder.ivUserAvatar);
 
-
-
 //        if(StringUtils.isBlank(repository.getLanguage())){
-//            holder.tvStatus.setText("");
+//            holder.tvLanguage.setText("");
 //            holder.languageColor.setVisibility(View.INVISIBLE);
 //        } else {
 //            holder.languageColor.setVisibility(View.VISIBLE);
-//            holder.tvStatus.setText(repository.getLanguage());
+//            holder.tvLanguage.setText(repository.getLanguage());
 //            int languageColor = LanguageColorsHelper.INSTANCE.getColor(context, repository.getLanguage());
 //            holder.languageColor.setImageTintList(ColorStateList.valueOf(languageColor));
 //        }

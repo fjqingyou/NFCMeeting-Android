@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 /**
  * 网络请求开始时显示dialog，结束取消dialog
- * Created by ThirtyDegreesRay on 2016/7/15 11:24
+ * Created_Time by ThirtyDegreesRay on 2016/7/15 11:24
  */
 public class HttpProgressSubscriber<T> extends HttpSubscriber<T> {
 

@@ -13,7 +13,7 @@ import dagger.Component;
 
 /**
  * ActivityComponent
- * Created by ThirtyDegreesRay on 2016/8/30 14:56
+ * Created_Time by ThirtyDegreesRay on 2016/8/30 14:56
  */
 @ActivityScope
 @Component(modules = ActivityModule.class, dependencies = AppComponent.class)

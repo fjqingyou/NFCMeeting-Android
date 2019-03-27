@@ -10,7 +10,7 @@ import com.nfcmeeting.nfcmeeting.ui.fragment.RepositoriesFragment;
 import dagger.Component;
 
 /**
- * Created on 2017/7/18.
+ * Created_Time on 2017/7/18.
  *
  * @author ThirtyDegreesRay
  */

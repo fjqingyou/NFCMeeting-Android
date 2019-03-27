@@ -19,28 +19,26 @@ public class RepositoriesFilter implements Parcelable {
     public final static RepositoriesFilter DEFAULT = new RepositoriesFilter();
 
     public final static RepositoriesFilter DEFAULT_STARRED_REPO
-            = new RepositoriesFilter().setSort(Sort.Created).setSortDirection(SortDirection.Desc);
+            = new RepositoriesFilter().setSort(Sort.Created_Time).setSortDirection(SortDirection.Desc);
 
     private enum Type{
-        All, Hosting, Finished
+        Going, Unstart, Finished
     }
 
     private enum Sort{
-        Created, Updated, Pushed, Full_name
+        Created_Time, Updated, Pushed, Title
     }
 
     private final static Map<Integer, Type> TYPE_RELATION = new HashMap<>();
     static {
-        TYPE_RELATION.put(R.id.nav_all, Type.All);
-        TYPE_RELATION.put(R.id.nav_hosting, Type.Hosting);
+        TYPE_RELATION.put(R.id.nav_going, Type.Going);
+        TYPE_RELATION.put(R.id.nav_unstart, Type.Unstart);
         TYPE_RELATION.put(R.id.nav_finished, Type.Finished);
-
-
 
     }
 
-    private Type type = Type.All;
-    private Sort sort = Sort.Full_name;
+    private Type type = Type.Going;
+    private Sort sort = Sort.Title;
     private SortDirection sortDirection = SortDirection.Asc;
 
     public static RepositoriesFilter generateFromDrawer(@NonNull NavigationView navView){
@@ -51,24 +49,24 @@ public class RepositoriesFilter implements Parcelable {
         }
 
         MenuItem sortItem = ViewUtils.getSelectedMenu(navView.getMenu().findItem(R.id.nav_sort));
-        Sort sort = Sort.Full_name;
+        Sort sort = Sort.Title;
         SortDirection sortDirection = SortDirection.Asc;
         if(sortItem != null){
             switch (sortItem.getItemId()){
                 case R.id.nav_full_name_asc:
-                    sort = Sort.Full_name;
+                    sort = Sort.Title;
                     sortDirection = SortDirection.Asc;
                     break;
                 case R.id.nav_full_name_desc:
-                    sort = Sort.Full_name;
+                    sort = Sort.Title;
                     sortDirection = SortDirection.Desc;
                     break;
                 case R.id.nav_recently_created:
-                    sort = Sort.Created;
+                    sort = Sort.Created_Time;
                     sortDirection = SortDirection.Desc;
                     break;
                 case R.id.nav_previously_created:
-                    sort = Sort.Created;
+                    sort = Sort.Created_Time;
                     sortDirection = SortDirection.Asc;
                     break;
 

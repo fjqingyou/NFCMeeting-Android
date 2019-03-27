@@ -7,12 +7,12 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_all"
-                    android:title="@string/all"
+                    android:id="@+id/nav_unstart"
+                    android:title="@string/unstart"
                     android:checked="true"/>
                 <item
-                    android:id="@+id/nav_hosting"
-                    android:title="@string/hosting"/>
+                    android:id="@+id/nav_going"
+                    android:title="@string/going"/>
                 <item
                     android:id="@+id/nav_finished"
                     android:title="@string/finished"/>

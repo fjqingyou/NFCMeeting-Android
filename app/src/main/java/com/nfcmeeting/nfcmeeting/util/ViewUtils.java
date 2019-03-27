@@ -33,7 +33,7 @@ import com.nfcmeeting.nfcmeeting.ui.widget.IssueLabelSpan;
 import java.util.ArrayList;
 
 /**
- * Created on 2017/8/1.
+ * Created_Time on 2017/8/1.
  * Copied from Copyright (C) 2017 Kosh.
  * Modified by Copyright (C) 2017 ThirtyDegreesRay.
  */

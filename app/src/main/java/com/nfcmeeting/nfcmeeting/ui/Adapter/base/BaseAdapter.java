@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * 适配器基类
- * Created by ThirtyDegreesRay on 2016/7/27 19:49
+ * Created_Time by ThirtyDegreesRay on 2016/7/27 19:49
  */
 public abstract class BaseAdapter<VH extends BaseViewHolder, D extends Object>
         extends RecyclerView.Adapter<VH>

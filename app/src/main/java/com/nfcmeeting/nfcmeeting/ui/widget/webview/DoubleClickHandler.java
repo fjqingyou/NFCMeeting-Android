@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by ThirtyDegreesRay on 2017/11/4 22:15:40
+ * Created_Time by ThirtyDegreesRay on 2017/11/4 22:15:40
  */
 
 public class DoubleClickHandler {

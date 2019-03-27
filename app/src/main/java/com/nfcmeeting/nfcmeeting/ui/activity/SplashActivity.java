@@ -16,7 +16,7 @@ import com.nfcmeeting.nfcmeeting.ui.activity.base.BaseActivity;
 
 
 /**
- * Created on 2017/7/12.
+ * Created_Time on 2017/7/12.
  *
  * @author ThirtyDegreesRay
  */

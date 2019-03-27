@@ -3,7 +3,7 @@ package com.nfcmeeting.nfcmeeting.http.common;
 import java.util.Map;
 
 /**
- * Created by hguang_gj@neusoft.com on 2018/12/30 20:52
+ * Created_Time by hguang_gj@neusoft.com on 2018/12/30 20:52
  */
 public class HttpResult {
     private String code;

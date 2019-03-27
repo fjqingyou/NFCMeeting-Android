@@ -14,7 +14,7 @@ import com.nfcmeeting.nfcmeeting.AppData;
 
 
 /**
- * Created by ThirtyDegreesRay on 2017/10/19 17:31:18
+ * Created_Time by ThirtyDegreesRay on 2017/10/19 17:31:18
  */
 
 public class BrowserFilterActivity extends AppCompatActivity {
