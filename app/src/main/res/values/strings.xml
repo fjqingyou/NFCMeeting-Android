@@ -54,9 +54,9 @@
     <string name="title_activity_about">AboutActivity</string>
 
     <string name="type">Type</string>
-    <string name="hosting">Hosting</string>
+    <string name="unstart">Unstart</string>
     <string name="finished">Finished</string>
-    <string name="all">All</string>
+    <string name="going">Going</string>
 
     <string name="sort_order">Sort order</string>
     <string name="full_name_asc">Full name asc</string>

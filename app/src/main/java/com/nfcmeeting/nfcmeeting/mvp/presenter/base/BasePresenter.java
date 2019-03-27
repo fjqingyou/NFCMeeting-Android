@@ -55,7 +55,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * BasePresenter
- * Created by ThirtyDegreesRay on 2016/7/13 18:01
+ * Created_Time by ThirtyDegreesRay on 2016/7/13 18:01
  */
 public abstract class BasePresenter<V extends IBaseContract.View> implements IBaseContract.Presenter<V> {
 

@@ -9,7 +9,7 @@ import com.nfcmeeting.nfcmeeting.mvp.model.BasicToken;
 
 
 /**
- * Created on 2017/7/12.
+ * Created_Time on 2017/7/12.
  *
  * @author ThirtyDegreesRay
  */

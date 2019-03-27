@@ -4,7 +4,7 @@ package com.nfcmeeting.nfcmeeting.http.error;
 
 /**
  * 网络请求错误
- * Created on 2016/10/19.
+ * Created_Time on 2016/10/19.
  *
  * @author ThirtyDegreesRay
  */

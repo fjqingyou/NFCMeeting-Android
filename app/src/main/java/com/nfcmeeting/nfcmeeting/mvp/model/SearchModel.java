@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by ThirtyDegreesRay on 2017/8/25 14:31:21
+ * Created_Time by ThirtyDegreesRay on 2017/8/25 14:31:21
  */
 
 public class SearchModel implements Parcelable {

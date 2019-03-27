@@ -3,7 +3,7 @@
 package com.nfcmeeting.nfcmeeting.http.core;
 
 /**
- * Created by ThirtyDegreesRay on 2016/7/15 14:45
+ * Created_Time by ThirtyDegreesRay on 2016/7/15 14:45
  */
 public interface HttpObserver<T> {
     /**

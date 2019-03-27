@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * StringUtil
- * Created by ThirtyDegreesRay on 2016/7/14 16:18
+ * Created_Time by ThirtyDegreesRay on 2016/7/14 16:18
  */
 public class StringUtils {
 

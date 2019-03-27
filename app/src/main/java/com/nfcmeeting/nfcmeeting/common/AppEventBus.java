@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus;
 
 /**
  * 事件总线
- * Created by ThirtyDegreesRay on 2016/8/22 14:55
+ * Created_Time by ThirtyDegreesRay on 2016/8/22 14:55
  */
 
 public enum  AppEventBus {

@@ -13,7 +13,7 @@ import com.nfcmeeting.nfcmeeting.AppApplication;
 import java.util.Set;
 
 /**
- * Created on 2017/10/30 11:59:38
+ * Created_Time on 2017/10/30 11:59:38
  * Copied from Copyright (C) 2017 Kosh.
  * Modified by Copyright (C) 2017 ThirtyDegreesRay.
  */

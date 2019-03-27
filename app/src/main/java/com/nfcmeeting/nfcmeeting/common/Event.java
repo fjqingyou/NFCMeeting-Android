@@ -9,7 +9,7 @@ import com.nfcmeeting.nfcmeeting.mvp.model.SearchModel;
 
 /**
  * 事件
- * Created by ThirtyDegreesRay on 2016/8/22 14:32
+ * Created_Time by ThirtyDegreesRay on 2016/8/22 14:32
  */
 
 public class Event {

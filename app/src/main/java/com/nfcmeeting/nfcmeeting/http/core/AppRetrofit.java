@@ -39,7 +39,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Retrofit 网络请求
- * Created by ThirtyDegreesRay on 2016/7/15 11:39
+ * Created_Time by ThirtyDegreesRay on 2016/7/15 11:39
  */
 public enum AppRetrofit {
     INSTANCE;

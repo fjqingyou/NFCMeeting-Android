@@ -2,11 +2,9 @@
 
 package com.nfcmeeting.nfcmeeting.ui.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,13 +22,16 @@ import com.nfcmeeting.nfcmeeting.ui.fragment.base.BaseFragment;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
+import com.nfcmeeting.nfcmeeting.util.StatusHelper;
 import com.nfcmeeting.nfcmeeting.util.StringUtils;
 import com.nfcmeeting.nfcmeeting.util.ViewUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 
 public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHolder, Repository> {
@@ -55,9 +56,9 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
     public class ViewHolder extends BaseViewHolder {
 
         @BindView(R.id.iv_user_avatar) ImageView ivUserAvatar;
-        @BindView(R.id.language_color) ImageView languageColor;
+        @BindView(R.id.status_color) ImageView statuaColor;
         @BindView(R.id.tv_repo_name) TextView tvRepoName;
-        @BindView(R.id.tv_language) TextView tvLanguage;
+        @BindView(R.id.tv_status) TextView tvStatus;
         @BindView(R.id.tv_repo_description) TextView tvRepoDescription;
         @BindView(R.id.tv_star_num) TextView tvStarNum;
         @BindView(R.id.tv_fork_num) TextView tvForkNum;
@@ -93,6 +94,11 @@ public class RepositoriesAdapter extends BaseAdapter<RepositoriesAdapter.ViewHol
         holder.tvStarNum.setText(dateFormat.format(repository.getBeginTime()));
         holder.tvForkNum.setText(dateFormat.format(repository.getEndTime()));
         holder.tvOwnerName.setText(repository.getModeratorName());
+
+        Map<String,Object> status = StatusHelper.INSTANCE.getStatus(new Date(),repository);
+        holder.tvStatus.setText((String)status.get("status"));
+        holder.statuaColor.setImageTintList(ColorStateList.valueOf((Integer) status.get("color")));
+
 
         GlideApp.with(fragment)
                 .load(repository.getModeratorAvatar())

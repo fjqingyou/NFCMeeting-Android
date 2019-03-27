@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 
 /**
  * 文件工具类
- * Created by ThirtyDegreesRay on 2016/8/4 13:30
+ * Created_Time by ThirtyDegreesRay on 2016/8/4 13:30
  */
 public class FileUtil {
 
