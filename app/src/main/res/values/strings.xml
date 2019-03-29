@@ -84,6 +84,11 @@
     <string name="warning_dialog_tile">Warning</string>
     <string name="logout_warning">Confirm to logout?</string>
     <string name="cancel">Cancel</string>
+    <string name="participants">Participants</string>
+    <string name="on_time">On time</string>
+    <string name="late">Late</string>
+    <string name="absent">Absent</string>
+    <string name="content">Content</string>
 
 
 </resources>

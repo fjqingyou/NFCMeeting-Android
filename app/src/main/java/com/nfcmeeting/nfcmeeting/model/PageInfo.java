@@ -7,6 +7,15 @@ public class PageInfo {
     private int pageNum = 1;
     private int pageSize = 8;
     private String orderBy;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getOrderBy() {
         return orderBy;

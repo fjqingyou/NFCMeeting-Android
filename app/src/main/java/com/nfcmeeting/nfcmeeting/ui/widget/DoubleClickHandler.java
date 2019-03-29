@@ -1,6 +1,6 @@
 
 
-package com.nfcmeeting.nfcmeeting.ui.widget.webview;
+package com.nfcmeeting.nfcmeeting.ui.widget;
 
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;

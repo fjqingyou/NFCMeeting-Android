@@ -4,11 +4,16 @@ import android.support.annotation.NonNull;
 import com.nfcmeeting.nfcmeeting.model.PageInfo;
 import com.nfcmeeting.nfcmeeting.model.User;
 import com.nfcmeeting.nfcmeeting.mvp.model.Repository;
+
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import rx.Observable;
 
 import java.util.ArrayList;
@@ -42,4 +47,31 @@ public interface MeetingService {
             @Header("forceNetWork") boolean forceNetWork,
             @NonNull @Body PageInfo page
     );
+
+    @NonNull @PUT("meeting/starMeeting/{owner}/{repo}")
+    Observable<Response<ResponseBody>> starMeeting(
+            @Path("owner") String owner,
+            @Path("meeting") String meeting
+    );
+
+    @NonNull @DELETE("meeting/unstarMeeting/{owner}/{repo}")
+    Observable<Response<ResponseBody>> unstarMeeting(
+            @Path("owner") String owner,
+            @Path("meeting") String meeting
+
+    );
+
+    @NonNull @GET("meeting/getMeetingInfo/{owner}/{repo}")
+    Observable<Response<Repository>> getMeetingInfo(
+            @Header("forceNetWork") boolean forceNetWork,
+
+            @Path("meeting") String meeting
+    );
+
+    @NonNull @GET("meeting/checkMeetingStarred/{owner}/{repo}")
+    Observable<Response<ResponseBody>> checkMeetingStarred(
+            @Path("owner") String owner,
+            @Path("repo") String repo
+    );
+
 }

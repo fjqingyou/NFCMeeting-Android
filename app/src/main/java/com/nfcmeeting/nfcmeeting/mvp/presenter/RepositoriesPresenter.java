@@ -140,10 +140,12 @@ public class RepositoriesPresenter extends BasePagerPresenter<IRepositoriesContr
     private Observable<Response<ArrayList<Repository>>> getObservable(boolean forceNetWork, PageInfo page) {
         switch (type) {
             case OWNED:
-                page.setOrderBy(filter.getType()+" "+filter.getSort());
+                page.setStatus(filter.getType());
+                page.setOrderBy(filter.getSort()+" "+filter.getSortDirection());
                 return getMeetingService().getAllMeeting(forceNetWork, page);
             case STARRED:
-                page.setOrderBy(filter.getType()+" "+filter.getSort());
+                page.setStatus(filter.getType());
+                page.setOrderBy(filter.getSort()+" "+filter.getSortDirection());
                 return getMeetingService().getStaredMeeting(forceNetWork,  page);
 
             default:

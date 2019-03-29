@@ -34,7 +34,7 @@ import com.nfcmeeting.nfcmeeting.inject.component.AppComponent;
 import com.nfcmeeting.nfcmeeting.ui.activity.LoginActivity;
 import com.nfcmeeting.nfcmeeting.ui.activity.SplashActivity;
 import com.nfcmeeting.nfcmeeting.mvp.contract.base.IBaseContract;
-import com.nfcmeeting.nfcmeeting.ui.widget.webview.DoubleClickHandler;
+import com.nfcmeeting.nfcmeeting.ui.widget.DoubleClickHandler;
 import com.nfcmeeting.nfcmeeting.util.AppUtils;
 import com.nfcmeeting.nfcmeeting.util.PrefUtils;
 import com.nfcmeeting.nfcmeeting.util.ThemeHelper;
